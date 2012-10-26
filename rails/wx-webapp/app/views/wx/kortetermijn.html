@@ -1,0 +1,346 @@
+<html>
+<head>
+<script type="text/javascript">
+      
+      /***********************************************
+      * Ultimate Fade-In Slideshow (v1.51): © Dynamic Drive (http://www.dynamicdrive.com)
+      * This notice MUST stay intact for legal use
+      * Visit http://www.dynamicdrive.com/ for this script and 100s more.
+      ***********************************************/
+       
+       var fadeimages=new Array()
+       //SET IMAGE PATHS. Extend or contract array as needed
+       fadeimages[0]=["blank.gif", "", ""] //plain image syntax
+       fadeimages[1]=["http://www.wetterzentrale.de/pics/Rmgfs063.gif", "", ""] //plain image syntax
+       fadeimages[2]=["http://www.wetterzentrale.de/pics/Rmgfs093.gif", "", ""] //plain image syntax
+       fadeimages[3]=["http://www.wetterzentrale.de/pics/Rmgfs123.gif", "", ""] //plain image syntax
+       fadeimages[4]=["http://www.wetterzentrale.de/pics/Rmgfs153.gif", "", ""] //plain image syntax
+       fadeimages[5]=["http://www.wetterzentrale.de/pics/Rmgfs183.gif", "", ""] //plain image syntax
+       fadeimages[6]=["http://www.wetterzentrale.de/pics/Rmgfs213.gif", "", ""] //plain image syntax
+       fadeimages[7]=["http://www.wetterzentrale.de/pics/Rmgfs243.gif", "", ""] //plain image syntax
+       fadeimages[8]=["http://www.wetterzentrale.de/pics/Rmgfs273.gif", "", ""] //plain image syntax
+       fadeimages[9]=["http://www.wetterzentrale.de/pics/Rmgfs303.gif", "", ""] //plain image syntax
+        
+        var fadeimages2=new Array() //2nd array set example. Remove or add more sets as needed.
+        //SET IMAGE PATHS. Extend or contract array as needed
+        fadeimages2[0]=["blank.gif", "", ""] //plain image syntax
+        fadeimages2[1]=["http://www.wetterzentrale.de/pics/Rmgfs064.gif", "", ""] //plain image syntax
+        fadeimages2[2]=["http://www.wetterzentrale.de/pics/Rmgfs124.gif", "", ""] //plain image syntax
+        fadeimages2[3]=["http://www.wetterzentrale.de/pics/Rmgfs184.gif", "", ""] //plain image syntax
+        fadeimages2[4]=["http://www.wetterzentrale.de/pics/Rmgfs244.gif", "", ""] //plain image syntax
+        fadeimages2[5]=["http://www.wetterzentrale.de/pics/Rmgfs304.gif", "", ""] //plain image syntax
+
+       var fadeimages3=new Array()
+       //SET IMAGE PATHS. Extend or contract array as needed
+       fadeimages3[0]=["blank.gif", "", ""] //plain image syntax
+       fadeimages3[1]=["http://www.wetterzentrale.de/pics/Rmgfs065.gif", "", ""] //plain image syntax
+       fadeimages3[2]=["http://www.wetterzentrale.de/pics/Rmgfs095.gif", "", ""] //plain image syntax
+       fadeimages3[3]=["http://www.wetterzentrale.de/pics/Rmgfs125.gif", "", ""] //plain image syntax
+       fadeimages3[4]=["http://www.wetterzentrale.de/pics/Rmgfs155.gif", "", ""] //plain image syntax
+       fadeimages3[5]=["http://www.wetterzentrale.de/pics/Rmgfs185.gif", "", ""] //plain image syntax
+       fadeimages3[6]=["http://www.wetterzentrale.de/pics/Rmgfs215.gif", "", ""] //plain image syntax
+       fadeimages3[7]=["http://www.wetterzentrale.de/pics/Rmgfs245.gif", "", ""] //plain image syntax
+       fadeimages3[8]=["http://www.wetterzentrale.de/pics/Rmgfs275.gif", "", ""] //plain image syntax
+       fadeimages3[9]=["http://www.wetterzentrale.de/pics/Rmgfs305.gif", "", ""] //plain image syntax
+
+        var fadeimages4=new Array() //2nd array set example. Remove or add more sets as needed.
+        //SET IMAGE PATHS. Extend or contract array as needed
+        fadeimages4[0]=["blank.gif", "", ""] //plain image syntax
+        fadeimages4[1]=["http://www2.wetter3.de/Animation_06_UTC/06_35.gif", "", ""] //plain image syntax
+        fadeimages4[2]=["http://www2.wetter3.de/Animation_06_UTC/12_35.gif", "", ""] //plain image syntax
+        fadeimages4[3]=["http://www2.wetter3.de/Animation_06_UTC/18_35.gif", "", ""] //plain image syntax
+        fadeimages4[4]=["http://www2.wetter3.de/Animation_06_UTC/24_35.gif", "", ""] //plain image syntax
+        fadeimages4[5]=["http://www2.wetter3.de/Animation_06_UTC/30_35.gif", "", ""] //plain image syntax
+
+       var fadeimages5=new Array()
+       //SET IMAGE PATHS. Extend or contract array as needed
+       fadeimages5[0]=["blank.gif", "", ""] //plain image syntax
+       fadeimages5[1]=["http://www.wetterzentrale.de/pics/Rmgfs066.gif", "", ""] //plain image syntax
+       fadeimages5[2]=["http://www.wetterzentrale.de/pics/Rmgfs096.gif", "", ""] //plain image syntax
+       fadeimages5[3]=["http://www.wetterzentrale.de/pics/Rmgfs126.gif", "", ""] //plain image syntax
+       fadeimages5[4]=["http://www.wetterzentrale.de/pics/Rmgfs156.gif", "", ""] //plain image syntax
+       fadeimages5[5]=["http://www.wetterzentrale.de/pics/Rmgfs186.gif", "", ""] //plain image syntax
+       fadeimages5[6]=["http://www.wetterzentrale.de/pics/Rmgfs216.gif", "", ""] //plain image syntax
+       fadeimages5[7]=["http://www.wetterzentrale.de/pics/Rmgfs246.gif", "", ""] //plain image syntax
+       fadeimages5[8]=["http://www.wetterzentrale.de/pics/Rmgfs276.gif", "", ""] //plain image syntax
+       fadeimages5[9]=["http://www.wetterzentrale.de/pics/Rmgfs306.gif", "", ""] //plain image syntax
+
+         
+         var fadebgcolor="white"
+         
+         ////NO need to edit beyond here/////////////
+          
+          var fadearray=new Array() //array to cache fadeshow instances
+          var fadeclear=new Array() //array to cache corresponding clearinterval pointers
+           
+           var dom=(document.getElementById) //modern dom browsers
+           var iebrowser=document.all
+            
+            function fadeshow(theimages, fadewidth, fadeheight, borderwidth, delay, pause, displayorder){
+            this.pausecheck=pause
+            this.mouseovercheck=0
+            this.delay=delay
+            this.degree=10 //initial opacity degree (10%)
+            this.curimageindex=0
+            this.nextimageindex=1
+            fadearray[fadearray.length]=this
+            this.slideshowid=fadearray.length-1
+            this.canvasbase="canvas"+this.slideshowid
+            this.curcanvas=this.canvasbase+"_0"
+            if (typeof displayorder!="undefined")
+            theimages.sort(function() {return 0.5 - Math.random();}) //thanks to Mike (aka Mwinter) :)
+            this.theimages=theimages
+            this.imageborder=parseInt(borderwidth)
+            this.postimages=new Array() //preload images
+            for (p=0;p<theimages.length;p++){
+            this.postimages[p]=new Image()
+            this.postimages[p].src=theimages[p][0]
+            }
+             
+             var fadewidth=fadewidth+this.imageborder*2
+             var fadeheight=fadeheight+this.imageborder*2
+              
+              if (iebrowser&&dom||dom) //if IE5+ or modern browsers (ie: Firefox)
+              document.write('<div id="master'+this.slideshowid+'" style="position:relative;width:'+fadewidth+'px;height:'+fadeheight+'px;overflow:hidden;"><div id="'+this.canvasbase+'_0" style="position:absolute;width:'+fadewidth+'px;height:'+fadeheight+'px;top:0;left:0;filter:progid:DXImageTransform.Microsoft.alpha(opacity=10);opacity:0.1;-moz-opacity:0.1;-khtml-opacity:0.1;background-color:'+fadebgcolor+'"></div><div id="'+this.canvasbase+'_1" style="position:absolute;width:'+fadewidth+'px;height:'+fadeheight+'px;top:0;left:0;filter:progid:DXImageTransform.Microsoft.alpha(opacity=10);opacity:0.1;-moz-opacity:0.1;-khtml-opacity:0.1;background-color:'+fadebgcolor+'"></div></div>')
+              else
+              document.write('<div><img name="defaultslide'+this.slideshowid+'" src="'+this.postimages[0].src+'"></div>')
+               
+               if (iebrowser&&dom||dom) //if IE5+ or modern browsers such as Firefox
+               this.startit()
+               else{
+               this.curimageindex++
+               setInterval("fadearray["+this.slideshowid+"].rotateimage()", this.delay)
+               }
+               }
+               
+               function fadepic(obj){
+               if (obj.degree<100){
+               obj.degree+=10
+               if (obj.tempobj.filters&&obj.tempobj.filters[0]){
+               if (typeof obj.tempobj.filters[0].opacity=="number") //if IE6+
+               obj.tempobj.filters[0].opacity=obj.degree
+               else //else if IE5.5-
+               obj.tempobj.style.filter="alpha(opacity="+obj.degree+")"
+               }
+               else if (obj.tempobj.style.MozOpacity)
+               obj.tempobj.style.MozOpacity=obj.degree/101
+               else if (obj.tempobj.style.KhtmlOpacity)
+               obj.tempobj.style.KhtmlOpacity=obj.degree/100
+               else if (obj.tempobj.style.opacity&&!obj.tempobj.filters)
+               obj.tempobj.style.opacity=obj.degree/101
+               }
+               else{
+               clearInterval(fadeclear[obj.slideshowid])
+               obj.nextcanvas=(obj.curcanvas==obj.canvasbase+"_0")? obj.canvasbase+"_0" : obj.canvasbase+"_1"
+               obj.tempobj=iebrowser? iebrowser[obj.nextcanvas] : document.getElementById(obj.nextcanvas)
+               obj.populateslide(obj.tempobj, obj.nextimageindex)
+               obj.nextimageindex=(obj.nextimageindex<obj.postimages.length-1)? obj.nextimageindex+1 : 0
+               setTimeout("fadearray["+obj.slideshowid+"].rotateimage()", obj.delay)
+               }
+               }
+                
+                fadeshow.prototype.populateslide=function(picobj, picindex){
+                var slideHTML=""
+                if (this.theimages[picindex][1]!="") //if associated link exists for image
+                slideHTML='<a href="'+this.theimages[picindex][1]+'" target="'+this.theimages[picindex][2]+'">'
+                slideHTML+='<img src="'+this.postimages[picindex].src+'" border="'+this.imageborder+'px">'
+                if (this.theimages[picindex][1]!="") //if associated link exists for image
+                slideHTML+='</a>'
+                picobj.innerHTML=slideHTML
+                }
+                 
+                  
+                  fadeshow.prototype.rotateimage=function(){
+                  if (this.pausecheck==1) //if pause onMouseover enabled, cache object
+                  var cacheobj=this
+                  if (this.mouseovercheck==1)
+                  setTimeout(function(){cacheobj.rotateimage()}, 100)
+                  else if (iebrowser&&dom||dom){
+                  this.resetit()
+                  var crossobj=this.tempobj=iebrowser? iebrowser[this.curcanvas] : document.getElementById(this.curcanvas)
+                  crossobj.style.zIndex++
+                  fadeclear[this.slideshowid]=setInterval("fadepic(fadearray["+this.slideshowid+"])",50)
+                  this.curcanvas=(this.curcanvas==this.canvasbase+"_0")? this.canvasbase+"_1" : this.canvasbase+"_0"
+                  }
+                  else{
+                  var ns4imgobj=document.images['defaultslide'+this.slideshowid]
+                  ns4imgobj.src=this.postimages[this.curimageindex].src
+                  }
+                  this.curimageindex=(this.curimageindex<this.postimages.length-1)? this.curimageindex+1 : 0
+                  }
+                   
+                   fadeshow.prototype.resetit=function(){
+                   this.degree=10
+                   var crossobj=iebrowser? iebrowser[this.curcanvas] : document.getElementById(this.curcanvas)
+                   if (crossobj.filters&&crossobj.filters[0]){
+                   if (typeof crossobj.filters[0].opacity=="number") //if IE6+
+                   crossobj.filters(0).opacity=this.degree
+                   else //else if IE5.5-
+                   crossobj.style.filter="alpha(opacity="+this.degree+")"
+                   }
+                   else if (crossobj.style.MozOpacity)
+                   crossobj.style.MozOpacity=this.degree/101
+                   else if (crossobj.style.KhtmlOpacity)
+                   crossobj.style.KhtmlOpacity=this.degree/100
+                   else if (crossobj.style.opacity&&!crossobj.filters)
+                   crossobj.style.opacity=this.degree/101
+                   }
+                    
+                     
+                     fadeshow.prototype.startit=function(){
+                     var crossobj=iebrowser? iebrowser[this.curcanvas] : document.getElementById(this.curcanvas)
+                     this.populateslide(crossobj, this.curimageindex)
+                     if (this.pausecheck==1){ //IF SLIDESHOW SHOULD PAUSE ONMOUSEOVER
+                     var cacheobj=this
+                     var crossobjcontainer=iebrowser? iebrowser["master"+this.slideshowid] : document.getElementById("master"+this.slideshowid)
+                     crossobjcontainer.onmouseover=function(){cacheobj.mouseovercheck=1}
+                     crossobjcontainer.onmouseout=function(){cacheobj.mouseovercheck=0}
+                     }
+                     this.rotateimage()
+                     }
+                     
+                     </script>
+
+<META name="verify-v1" content="GYFz3wNRskJO2k9uhxRRYuYW+kH9UmPZj8lnMV1BzaY=">
+<title>Welkom op de Welsum Weersite</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<meta HTTP-EQUIV="Refresh" CONTENT="300">
+<LINK href="stylesheets/lelystyle.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<table class="pagetable" width="1000" border="2" cellspacing="0" cellpadding="2" align="center">
+  <tr>
+    <td class="topheader" colspan="2" align="left" valign="middle">
+    &nbsp;Welkom op de Welsum Weersite
+    </font>
+    &nbsp;&nbsp;&nbsp;
+    <font size=2px color="#000000">
+    <a class="top" href="mailto:&#104;&#111;&#101;&#118;&#101;&#110;&#118;&#100;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;?Subject=Comments Lelystad Weersite">Mail mij!</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    </font>
+    </td>
+  </tr>
+  <tr>
+    <td width="200" valign="top">
+    <a class="menu" href="http://www.weerinwelsum.nl">Home</a><br>
+    <a class="menu" href="radarsatelliet">Radar en satelliet</a><br>
+    <a class="menu" href="kortetermijn">Korte termijn</a><br>
+    <a class="menu" href="langetermijn">Lange termijn</a><br>
+    <a class="menu" href="graphs/index.html">Grafieken</a><br>
+    <br>
+    <br>
+    <br>
+    <center>
+    <a href="http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IOVERIJS45" target="_blank"><img src="http://banners.wunderground.com/cgi-bin/banner/ban/wxBanner?bannertype=WeatherStationCount&weatherstationcount=IOVERIJS45" width="100" height="100" border=0></a>
+    <br>
+    <a href="http://www.findu.com/cgi-bin/wxpage.cgi?call=EW0898&units=metric" target="_blank"><img src="http://www.wxqa.com/archive/cwp_logo.gif" width="100" height="100" border="0"></a>
+    </center>
+    </td>
+    <td width="800" valign="top">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td valign="top">
+<table width="800">
+<tr>
+<td class="tabledetail">
+Korte termijn verwachtingen
+</td>
+<tr>
+<tr>
+<td>
+<img src="http://teletekst.nos.nl/gif/images/703-01.gif">
+<img src="http://teletekst.nos.nl/gif/images/710-01.gif">
+</td>
+</tr>
+<tr>
+<td>
+<img src="http://www.yr.no/place/Netherlands/Overijssel/Welsum~2744845/meteogram.png">
+</td>
+</tr>
+
+<tr>
+<td>
+<script type="text/javascript">
+//new fadeshow(IMAGES_ARRAY_NAME, slideshow_width, slideshow_height, borderwidth, delay, pause (0=no, 1=yes), optionalRandomOrder)
+new fadeshow(fadeimages, 799, 671, 0, 500, 0)
+</script>
+</td>
+</tr>
+<tr>
+<td>
+<img src="http://www.wetterzentrale.de/pics/Rmgfs24sum.gif">
+</td>
+</tr>
+<tr>
+<td>
+<script type="text/javascript">
+//new fadeshow(IMAGES_ARRAY_NAME, slideshow_width, slideshow_height, borderwidth, delay, pause (0=no, 1=yes), optionalRandomOrder)
+new fadeshow(fadeimages2, 799, 671, 0, 500, 0)
+</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="text/javascript">
+//new fadeshow(IMAGES_ARRAY_NAME, slideshow_width, slideshow_height, borderwidth, delay, pause (0=no, 1=yes), optionalRandomOrder)
+new fadeshow(fadeimages3,799, 671, 0, 500, 0)
+</script>
+</td>
+</tr>
+<tr>
+<td>
+<script type="text/javascript">
+//new fadeshow(IMAGES_ARRAY_NAME, slideshow_width, slideshow_height, borderwidth, delay, pause (0=no, 1=yes), optionalRandomOrder)
+new fadeshow(fadeimages4,799, 671, 0, 500, 0)
+</script>
+</td>
+</tr>
+
+<tr>
+<td>
+<script type="text/javascript">
+//new fadeshow(IMAGES_ARRAY_NAME, slideshow_width, slideshow_height, borderwidth, delay, pause (0=no, 1=yes), optionalRandomOrder)
+new fadeshow(fadeimages5,799, 671, 0, 500, 0)
+</script>
+</td>
+</tr>
+
+
+</table>
+
+
+
+
+
+
+        </td>
+    </tr>
+    </table>    
+    </td>
+  </tr>
+  <tr align="center">
+  <td class="reference" align="center"><img src="ruby.png" alt="Running on Ruby" width="40" height="50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="rails.png" alt="Running on Rails" width="40" height="50"><br>
+  In samenwerking met<br><a class="reference" href="http://www.tom.org" target="_blank">http://www.tom.org</a>
+  </td>
+    <td>
+	<div class="doNotPrint">
+	<script type="text/javascript"><!--
+	 google_ad_client = "pub-5936540166567635";
+        //weerinlelystad
+          google_ad_slot = "4585179640";
+        google_ad_width = 728;
+         google_ad_height = 90;
+        //--></script>
+         <script type="text/javascript"
+        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+	<br class="doNotPrint" />
+        </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+
