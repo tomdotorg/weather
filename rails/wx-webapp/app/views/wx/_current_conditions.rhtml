@@ -1,69 +1,196 @@
-<TABLE BORDER WIDTH="360" BGCOLOR="#C0C0C0">
+<TABLE width="100%" border="0" cellspacing="2" cellpadding="2">
 <div id="CUR">
 <TR>
-  <TD ALIGN="CENTER" VALIGN="TOP" COLSPAN="3" WIDTH="100%">
-  <B>Conditions as of <%= @current.sample_date.in_time_zone.strftime("%I:%M:%S %p %m-%d-%y") %></B><br>(<%= distance_of_time_in_words_to_now(@current.sample_date, true) %> ago)
+  <TD class="tabletop" ALIGN="CENTER" VALIGN="TOP" COLSPAN="4" WIDTH="100%">
+  Actuele gegevens van Welsum op <%= @current.sample_date.in_time_zone.strftime("%H:%M:%S") %>
   </TD>
 </TR>
 
-<TR>
-  <TD ALIGN="CENTER"><B>Temp</B><br>
-    <%= @current.outside_temperature %> <%= @current.temp_trend %> <%= @highlo %>
+<TR valign="top">
+  <TD class="tabledetail" ALIGN="CENTER">Temperatuur&nbsp;&deg;C<br>
+    <font color="#003366">
+    <b>
+    <%= @current.outside_temperature_m %>
+
+    </b>
+    </font>
+  </TD>
+ <TD class="tabledetail" ALIGN="CENTER">Voelt als&nbsp;&deg;C<br>
+  <font color="#003366">
+  <b>
+    <%= @current.apparent_temp_m %>
+    </b>
+    </font>
   </TD>
 
-  <TD ALIGN=CENTER><B>Wind</B><br><%= @current.wind_str %></TD>
 
-  <TD ALIGN=CENTER><B>Dewpoint</B><BR><%= @current.dewpoint %> <%= @current.dewpoint_trend %></TD>
+
+</b>
+  </font>
+  </td>
+  <TD class="tabledetail" ALIGN=CENTER>Dauwpunt&nbsp;&deg;C<BR>
+  <font color="#003366">
+  <b>
+  <%= @current.dewpoint_m %>
+  </b>
+  </font>
+  </TD>
+  <TD class="tabledetail" ALIGN="CENTER">Grasminimum&nbsp;&deg;C<br>
+  <font color="#003366">
+  <b>
+    <%= @current.extra_temp1_m %>
+    </b>
+    </font>
+  </TD>
+ 
 </TR>
 
-<TR>
-  <TD ALIGN="CENTER"><B>Feels like</B><br>
-    <%= @current.apparent_temp %>
+<TR valign="top">
+  <TD class="tabledetail" ALIGN="CENTER">Luchtdruk&nbsp;hPa<br>
+  <font color="#003366">
+  <b>
+    <% pressurestatus = @current.bar_status %>
+    <% if pressurestatus.include? "Falling" %>
+    <% pressurestatus = 'Dalend' %>
+    <% end %>
+    <% if pressurestatus.include? "Steady" %>
+    <% pressurestatus = 'Stabiel' %>
+    <% end %>
+    <% if pressurestatus.include? "Rising" %>
+    <% pressurestatus = 'Stijgend' %>
+    <% end %>
+    <%= sprintf("%0.1f", @current.pressure_m) %>; <%= pressurestatus %>
+    </b>
+    </font>
   </TD>
-  <TD ALIGN="CENTER"><B>Pressure</B><br>
-    <%= sprintf("%0.02f", @current.pressure) %> and  <%= @current.bar_status %>
-  </TD>
+  <TD class="tabledetail" ALIGN=CENTER>Wind&nbsp;m/s<br>
+  <font color="#003366">
+  <b>
+  <% if !@current.windspeed.nil? %>
+  <% winddirection = Direction.to_s(@current.wind_direction) %>
+  <% if winddirection == "N" %>
+  <% winddirection = "N" %>
+  <% end %>
+  <% if winddirection == "NNE" %>
+  <% winddirection = "NNO" %>
+  <% end %>
+  <% if winddirection == "NE" %>
+  <% winddirection = "NO" %>
+  <% end %>
+  <% if winddirection == "ENE" %>
+  <% winddirection = "ONO" %>
+  <% end %>
+  <% if winddirection == "E" %>
+  <% winddirection = "O" %>
+  <% end %>
+  <% if winddirection == "ESE" %>
+  <% winddirection = "OZO" %>
+  <% end %>
+  <% if winddirection == "SE" %>
+  <% winddirection = "ZO" %>
+  <% end %>
+  <% if winddirection == "SSE" %>
+  <% winddirection = "ZZO" %>
+  <% end %>
+  <% if winddirection == "S" %>
+  <% winddirection = "Z" %>
+  <% end %>
+  <% if winddirection == "SSW" %>
+  <% winddirection = "ZZW" %>
+  <% end %>
+  <% if winddirection == "SW" %>
+  <% winddirection = "ZW" %>
+  <% end %>
+  <% if winddirection == "WSW" %>
+  <% winddirection = "WZW" %>
+  <% end %>
+  <% if winddirection == "SW" %>
+  <% winddirection = "ZW" %>
+  <% end %>
+  <% if winddirection == "WNW" %>
+  <% winddirection = "WNW" %>
+  <% end %>
+  <% if winddirection == "NW" %>
+  <% winddirection = "NW" %>
+  <% end %>
+  <% if winddirection == "NNW" %>
+  <% winddirection = "NNW" %>
+  <% end %>
+  <%= @current.windspeed_m %>; <%= winddirection %>
+  <% else %>
+  Niet beschikbaar
+  <% end %>
+  </font></TD>
+  
 
-  <TD ALIGN=CENTER><B>Humidity</B><br>
+  <TD class="tabledetail" ALIGN=CENTER>Vocht&nbsp;%<br>
+  <font color="#003366">
+  <b>
     <%= @current.outside_humidity %>
+    </b>
+    </font>
+  </TD>
+  <TD class="tabledetail" ALIGN="CENTER">Zonneschijn&nbsp;W/m&#178;<br>
+  <font color="#003366">
+  <b>
+    <%= @current.solar_radiation %>
+    </b>
+    </font>
   </TD>
 
 </TR>
 
-  <% if @current.solar_radiation != 0 %>
-    <TR>
-      <TD ALIGN="CENTER" COLSPAN="3" WIDTH="100%">
-        <B>Solar Radiation</B><br><%= @current.solar_radiation %> watts / sq. meter
-        <% if @current.solar_radiation == 0 %>
-          &nbsp;(Dark)
-        <% end # if @current.solar_radiation > 0 %>
-      </TD>
-    </TR>
-  <% end # if @current.solar_radiation > 0 %>
+
+<TR valign="top">
+
+  <TD class="tabledetail" ALIGN=CENTER>UV-index<br>
+  <font color="#003366">
+  <b>
+    <%= (@current.uv.to_f/10).round(1) %>
+    </b>
+    </font>
+  </TD>
+  <td class="tabledetail" ALIGN=CENTER colspan="3">
 
 <% if @current.is_raining %>
-<TR>
-  <TD ALIGN=CENTER COLSPAN=3 WIDTH="100%">
-      <b>Raining at <%= @current.rain_rate %> inches per hour</b>
-  </TD>
-</TR>
+    <font color="#222222">
+      <b>Regenintensiteit <%= @current.rain_rate %> mm per uur</b></font>
 <% else %>
   <% if !@last_rain.nil? %>
-    <TR>
-      <TD ALIGN=CENTER COLSPAN=3 WIDTH="100%">
-        <b>Last rain:</b> <%= distance_of_time_in_words_to_now(@last_rain, true)  %> ago
-      </TD>
-    </TR>
+    <font color="#222222">
+	<% lastrainperiod = distance_of_time_in_words_to_now(@last_rain, true) %>
+	<% if lastrainperiod.include? "minutes" %>
+	<% lastrainperiod['minutes'] = 'minuten' %>
+	<% end %>
+	<% if lastrainperiod.include? "hours" %>
+	<% lastrainperiod['hours'] = 'uur' %>
+	<% end %>
+	<% if lastrainperiod.include? "hour" %>
+	<% lastrainperiod['hour'] = 'uur' %>
+	<% end %>
+	<% if lastrainperiod.include? "about" %>
+	<% lastrainperiod['about'] = 'ongeveer' %>
+	<% end %>
+	<% if lastrainperiod.include? "days" %>
+	<% lastrainperiod['days'] = 'dagen' %>
+	<% end %>
+	<% if lastrainperiod.include? "day" %>
+	<% lastrainperiod['day'] = 'dag' %>
+	<% end %>
+	<% if lastrainperiod.include? "months" %>
+	<% lastrainperiod['months'] = 'maand' %>
+	<% end %>
+	<% if lastrainperiod.include? "month" %>
+	<% lastrainperiod['month'] = 'maand' %>
+	<% end %>
+        <b>Laatste keer geregend:</b> <font color="#003366"><b><%= lastrainperiod %> geleden</b></font></font>
   <% end %>
-<% end %>
 
-
-<% if @conditions != nil && @conditions_date > 2.hours.ago %>
-<TR>
-  <TD ALIGN=CENTER COLSPAN=3 WIDTH="100%"><B><%= @conditions %><br>Visibility <%= @visibility %> miles</B><br/>
-   Observed at Beverly Airport <%= distance_of_time_in_words_to_now(@conditions_date, false) %> ago
-  </TD>
+  </td>
 </TR>
-<% end # if @current != nil %>
+
+
+
+<% end %>
 </div>
 </TABLE>

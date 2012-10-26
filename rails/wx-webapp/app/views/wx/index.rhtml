@@ -2,87 +2,103 @@
 <head>
 <%= javascript_include_tag :defaults %>
 <META name="verify-v1" content="GYFz3wNRskJO2k9uhxRRYuYW+kH9UmPZj8lnMV1BzaY=">
-<META NAME="keywords" CONTENT="Beverly weather tide Boston Mass massachusetts ma live rails java temperature dry hot humid cold new england northeast current humid rain wind windy current">
+<title>Welkom op de Welsum Weersite</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
-<meta HTTP-EQUIV="Refresh" CONTENT="600">
-<meta HTTP-EQUIV="ContentType" CONTENT="text/html">
-<title>Live Beverly, MA Weather</title>
+<meta HTTP-EQUIV="Refresh" CONTENT="300">
+<LINK href="stylesheets/lelystyle.css" rel="stylesheet" type="text/css">
 </head>
-
-<body BGCOLOR="#FFFFFF" background="<%= image_path("sky-bkgd1.jpg") %>" >
-<CENTER>
-<table border="0" width="100%" cellspacing="0" cellpadding="3">
+<body>
+<table class="pagetable" border="0" cellspacing="0" cellpadding="2" align="center">
   <tr>
-    <td width="100%" bgcolor="#000080"><font face="Arial Black" color="#FFFFFF"><big>
-    <strong>Live Weather in Beverly, MA</strong></big></font></td>
+    <td class="topheader" colspan="3" align="left" valign="middle">
+    &nbsp;Welkom op de Welsum Weersite
+    </font>
+    &nbsp;&nbsp;&nbsp;
+    <font size=2px color="#000000">
+    <a class="top" href="mailto:&#104;&#111;&#101;&#118;&#101;&#110;&#118;&#100;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;?Subject=Comments Lelystad Weersite">Mail mij!</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    </font>
+    </td>
   </tr>
+  <tr>
+    <td valign="top">
+    <a class="menu" href="http://www.weerinwelsum.nl">Home</a><br>
+    <a class="menu" href="radarsatelliet">Radar en satelliet</a><br>
+    <a class="menu" href="kortetermijn">Korte termijn</a><br>
+    <a class="menu" href="langetermijn">Lange termijn</a><br>
+    <a class="menu" href="graphs/index.html">Grafieken</a><br>
+    <br>
+    <img src="http://m.buienradar.nl/" height=200 width=200>  <br>
+    <img src="http://m.meteox.com/" height=200 width=200> 
+    <br>
+    <a href="http://www.wunderground.com/weatherstation/WXDailyHistory.asp?ID=IOVERIJS45" target="_blank"><img src="http://banners.wunderground.com/cgi-bin/banner/ban/wxBanner?bannertype=WeatherStationCount&weatherstationcount=IOVERIJS45" width="100" height="100" border=0></a>
+    <a href="http://www.findu.com/cgi-bin/wxpage.cgi?call=EW0898&units=metric" target="_blank"><img src="http://www.wxqa.com/archive/cwp_logo.gif" width="100" height="100" border="0"></a>
+    </td>
+    <td valign="top">
+    <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+    <td nowrap>
+        <% if @current.nil? %>
+        <p>
+        <b>
+        Actuele gegevens niet aanwezig
+        </b>
+        <% else %>
+        <div id="current_conditions">
+    	<%= render(:partial => "current_conditions", :layout => false  ) %>
+    	</div>
+    	<%= periodically_call_remote(:update => 'current_conditions',
+    			 :url => { :action => :current_conditions }, :frequency => 5, :complete => visual_effect(:highlight, 'current_conditions', :startcolor => "#000080"))  %>
+        <% end %>
+
+    </td>
+    </tr>
+    <tr>
+    <td>
+      <div id="period">
+        <%= render(:partial => "period", :layout => false  ) %>
+        </div>
+        <%= periodically_call_remote(:update => 'period',
+    		     :url => { :action => :period },
+    		    		 :frequency => 60 ) %>
+    		    		 
+    </td>
+    </tr>
+
+    <tr>
+    <td>
+        <%= render(:partial => "sunrise", :layout => false ) %>
+
+    </td>
+    </tr>    
+    <tr>
+    <td>
+        <%= render(:partial => "forecast", :layout => false ) %>
+
+    </td>
+    </tr>
+
+    </table>    
+    </td>
+    <td width="120" rowspan="3" valign="top">
+		
+	<script type="text/javascript">
+	<!--
+google_ad_client = "pub-5936540166567635";
+/* weerinlelystad_verticaal */
+google_ad_slot = "1129860071";
+google_ad_width = 120;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+	
+	
+	</td>
+</tr>    
 </table>
-
-
-<p>
-<% cache(:action => "index", :action_suffix => "sunapplet") do %>
-  <%= render(:partial => "sunapplet", :layout => false  ) %>
-<% end %>
-<table>
-<% if @current.nil? %>
-<p>
-<b>Current Conditions Currently Unavailable</b>
-<% else %>
-<tr>
-  <td></td>
-<td>
-<div id="current_conditions">
-<table>
-<%= render(:partial => "current_conditions", :layout => false  ) %>
-</table>
-</div>
-<tr align="center">
-<%= periodically_call_remote(:update => 'current_conditions',
-				 :url => { :action => :current_conditions }, :frequency => 5, :complete => visual_effect(:highlight, 'current_conditions', :startcolor => "#003333"))  %>
-</td>
-</tr>
-<%= render(:partial => "climate_info", :layout => false  ) %>
-<% end %>
-
-<table>
-<tr align="center">
-<td>
-<div id="period">
-<%= render(:partial => "period", :layout => false  ) %>
-</div>
-<%= periodically_call_remote(:update => 'period',
-				 :url => { :action => :period },
-				 :frequency => 60 ) %>
-
-</td>
-</tr>
-
-<%= render(:partial => "sunrise", :layout => false  ) %>
-
-</table>
-<p>
-
-<%= render(:partial => "radarwebcam", :layout => false  ) %>
-
-<% cache(:action => "index", :action_suffix => "graphs") do %>
-  <%= render(:partial => "graphs", :layout => false  ) %>
-<% end %>
-
-<%= render(:partial => "forecast", :layout => false  ) %>
-
-<% cache(:action => "index", :action_suffix => "tides") do %>
-  <%= render(:partial => "tides", :layout => false  ) %>
-<% end %>
-
-<% cache(:action => "index", :action_suffix => "info") do %>
-  <%= render(:partial => "info", :layout => false  ) %>
-<% end %>
-
-<% cache(:action => "index", :action_suffix => "google_analytics") do %>
-  <%= render(:partial => "google_analytics", :layout => false  ) %>
-<% end %>
-
-</CENTER>
 </body>
 </html>
