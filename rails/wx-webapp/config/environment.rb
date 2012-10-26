@@ -69,12 +69,12 @@ Rails::Initializer.run do |config|
   # Set our local timezone
   # use rake time:zones:all|local|us to see list of options
   # use rake time:zones:all|local|us to see list of options
-  config.time_zone = 'Eastern Time (US & Canada)'
+  config.time_zone = 'Amsterdam'
 
   # Make Active Record use UTC-base instead of local time
   config.active_record.default_timezone = :utc
 
-  ENV['TZ'] = 'US/Eastern'
+  ENV['TZ'] = 'Europe/Amsterdam'
 
   config.autoload_paths += %W( #{RAILS_ROOT}/app/apis )
   config.autoload_paths += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir|
