@@ -11,8 +11,8 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
-  #map.resources :archive_records
-  #map.resources :current_conditions
+  map.resources :archive_records
+  map.resources :current_conditions
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
 
@@ -27,10 +27,15 @@ ActionController::Routing::Routes.draw do |map|
 
   # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
   map.root :controller => "wx"
-
+  map.wx ':page', :controller => 'wx', :action => 'show', :page => /kortetermijn|langetermijn|radarsatelliet/
+  map.wx ':page', :controller => 'wx', :action => 'dynamisch', :page => /dynamisch/
+  map.wx ':page', :controller => 'wx', :action => 'dynamisch1', :page => /dynamisch1/
+  
+  
+  
   # Allow downloading Web Service WSDL as a file with an extension
   # instead of a file named 'wsdl'
-  #map.connect ':controller/service.wsdl', :action => 'wsdl'
+  map.connect ':controller/service.wsdl', :action => 'wsdl'
 
   # See how all your routes lay out with "rake routes"
 
