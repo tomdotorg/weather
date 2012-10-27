@@ -3,6 +3,33 @@ require 'noaa_forecast'
 class WxController < ApplicationController
   include REXML
 
+  def show
+    render :action => params[:page]
+    end
+
+  def dynamisch
+    periods
+    get_current_conditions
+# only call one of get_xxx_forecast since the @forecast get overridden
+# TODO: externalize which forecast capability to use
+    get_wunder_forecast
+#    get_noaa_forecast
+    get_climate
+    get_riseset
+    end
+
+  def dynamisch1
+    periods
+    get_current_conditions
+# only call one of get_xxx_forecast since the @forecast get overridden
+# TODO: externalize which forecast capability to use
+    get_wunder_forecast
+#    get_noaa_forecast
+    get_climate
+    get_riseset
+    end
+
+
   def index
     periods
     get_current_conditions
