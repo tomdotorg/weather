@@ -33,7 +33,7 @@ class WxController < ApplicationController
   def index
     periods
     get_current_conditions
-    get_noaa_forecast
+    get_wunder_forecast
     get_climate
     get_riseset
   end
@@ -41,6 +41,21 @@ class WxController < ApplicationController
   def get_noaa_forecast
     @forecast = NoaaForecast.latest(AppConfig.noaa_location)
   end
+
+  def get_wunder_conditions
+      wunder_conditions = WunderConditions.latest(AppConfig.noaa_location)
+    
+          
+    if wunder_conditions !=  nil
+      @conditions = wunder_conditions.conditions
+      @conditions_date = wunder_conditions.as_of.localtime
+      @visibility = wunder_conditions.visibility
+      @visibility_m = wunder_conditions.visibility_m
+      @icon_url = wunder_conditions.icon_url
+
+    end
+  end
+
 
   def get_climate
     c = Climate.find_by_location_and_month_and_day(AppConfig.climate_location,Time.now.localtime.month, Time.now.localtime.day)
@@ -68,6 +83,15 @@ class WxController < ApplicationController
       @visibility = noaa_conditions.visibility
     end
   end
+
+  def get_wunder_forecast
+      @forecast = WunderForecast.latest(AppConfig.noaa_location) 
+      @forecast_transposed = WunderForecast.latest(AppConfig.noaa_location)
+      @fclong = @forecast_transposed.wunder_forecast_period_longs.to_a
+      @forecast_long = @fclong.map { |e| [e.date, e.high_m, e.low_m, e.icon_location, e.conditions] }.transpose
+          
+  end
+
 
   def periods
     @today = WxPeriod.today_summary(AppConfig.location)
