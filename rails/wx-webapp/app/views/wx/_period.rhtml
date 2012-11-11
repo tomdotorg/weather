@@ -178,6 +178,52 @@ Gevoelstemperatuur&nbsp;&deg;C
 </tr>
 
 <tr class="tabledetail">
+<td nowrap>
+<font color="#222222">
+<b>
+Grasminimum&nbsp;10cm&nbsp;&deg;C
+</b>
+</font>
+</td>
+<td align="center">
+<font color="green">
+<b>
+<%= @today.to_c(@today.avgExtraTemp1.to_f).round(1) %>
+</b>
+</font>
+</td>
+<td align="center">
+<font color="red">
+<b>
+<%= @today.to_c(@today.hiExtraTemp1.to_f).round(1) %>
+</b>
+</font>
+</td>
+<td align="center">
+<font color="#222222">
+<b>
+<%= @today.hiExtraTemp1Date.in_time_zone.strftime "%H:%M" %>
+</b>
+</font>
+</td>
+<td align="center">
+<b>
+<font color="#003366">
+<%= @today.to_c(@today.lowExtraTemp1.to_f).round(1) %>
+</b>
+</font>
+</td>
+<td align="center">
+<font color="#222222">
+<b>
+<%= @today.lowExtraTemp1Date.in_time_zone.strftime "%H:%M" %>
+</b>
+</font>
+</td>
+</tr>
+
+
+<tr class="tabledetail">
 <td>
 <font color="#222222">
 <b>
