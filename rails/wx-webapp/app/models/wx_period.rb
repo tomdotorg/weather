@@ -30,6 +30,12 @@ class WxPeriod < Period
     s = PastSummary.find_by_period_and_location(:this_month, location)
     return (!s.nil? and s.enddate < Time.now.utc) ? nil : s
   end
+
+  def WxPeriod.this_year_summary(location)
+    s = PastSummary.find_by_period_and_location(:this_year, location)
+    return (!s.nil? and s.enddate < Time.now.utc) ? nil : s
+  end
+
   
   def WxPeriod.last_hour_summary(location)
     s = PastSummary.find_by_period_and_location(:last_hour, location)
@@ -70,6 +76,7 @@ class WxPeriod < Period
       return s      
     end
   end
+
 
   def dewpoint_date(pd, temp, location)
     a = ArchiveRecord.find(:first, :conditions => "location = '#{location}' and date >= '#{pd.start_time_sql}' and date < '#{pd.end_time_sql}' and average_dewpoint = '#{temp}'", :order => "date desc")

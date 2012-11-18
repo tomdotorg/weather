@@ -413,10 +413,104 @@ Windsnelheid&nbsp;m/s
 </font>
 </td>
 </tr>
+
+<tr class="tabledetail">
+<td>
+<font color="#222222">
+<b>
+Zonneschijn&nbsp;W/m&#178;
+</b>
+</font>
+</td>
+<td align="center">
+<font color="green">
+<b>
+-
+</b>
+</font>
+</td>
+<td align="center">
+<font color="red">
+<b>
+-
+</b>
+</font>
+</td>
+<td align="center">
+<font color="#222222">
+<b>
+-
+</b>
+</font>
+</td>
+<td align="center">
+<b>
+<font color="#003366">
+</b>
+</font>
+</td>
+<td align="center">
+<font color="#222222">
+<b>
+</b>
+</font>
+</td>
+</tr>
+
+<tr class="tabledetail">
+<td>
+<font color="#222222">
+<b>
+UV index
+</b>
+</font>
+</td>
+<td align="center">
+<font color="green">
+<b>
+-
+</b>
+</font>
+</td>
+<td align="center">
+<font color="red">
+<b>
+-
+</b>
+</font>
+</td>
+<td align="center">
+<font color="#222222">
+<b>
+-
+</b>
+</font>
+</td>
+<td align="center">
+<b>
+<font color="#003366">
+</b>
+</font>
+</td>
+<td align="center">
+<font color="#222222">
+<b>
+</b>
+</font>
+</td>
+</tr>
+
+
+
+
 </table>
+
+
+
+
 <table width="100%">
 <TR>
-<TD class="tabletop" align="center" COLSPAN="5">Neerslag en verdamping</td>
+<TD class="tabletop" align="center" COLSPAN="6">Neerslag en verdamping</td>
 </tr>
 <tr class="tabledetail">
 <td width="158" align="left">&nbsp;</td>
@@ -424,6 +518,7 @@ Windsnelheid&nbsp;m/s
 <td align="center"><font color="#222222">Vandaag</font></td>
 <td align="center"><font color="#222222">Week</font></td>
 <td align="center"><font color="#222222">Maand</font></td>
+<td align="center"><font color="#222222">Jaar</font></td>
 </tr>
 
 <tr class="tabledetail">
@@ -457,6 +552,43 @@ Windsnelheid&nbsp;m/s
 <% if !@this_month.rain.nil? %>
 <%= @this_month.inches_to_mm(@this_month.rain.to_f).round(1) %>
 <% end %>                                                                 
+</font>
+</td>
+<td align="center">
+<font color="#003366">
+<% if !@this_year.rain.nil? %>
+<%= @this_year.inches_to_mm(@this_year.rain.to_f).round(1) %>
+<% end %>                                                                 
+</font>
+</td>
+</tr>
+
+<tr class="tabledetail">
+<td align="left">
+<font color="#222222">Verdamping&nbsp;mm</font></td>
+<td align="center">
+<font color="#003366">
+-
+</font>
+</td>
+<td align="center">
+<font color="#003366">
+-
+</font>
+</td>
+<td align="center">
+<font color="#003366">
+-
+</font>
+</td>
+<td align="center">
+<font color="#003366">
+-
+</font>
+</td>
+<td align="center">
+<font color="#003366">
+-
 </font>
 </td>
 </tr>

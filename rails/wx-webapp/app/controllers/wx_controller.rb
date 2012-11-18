@@ -94,10 +94,16 @@ class WxController < ApplicationController
 
 
   def periods
+    #hack to make yearly rainfall and yearly evaporation (both in current_conditions) available in periods.
+    #this is more efficient (as the data is in current conditions anyway) than to calculate data in this_year_summary
+    @current = CurrentCondition.find_by_location(AppConfig.location)
+    #end of hack
+
     @today = WxPeriod.today_summary(AppConfig.location)
     @this_hour = WxPeriod.this_hour_summary(AppConfig.location)
     @this_week = WxPeriod.this_week_summary(AppConfig.location)
     @this_month = WxPeriod.this_month_summary(AppConfig.location)
+    @this_year = WxPeriod.this_year_summary(AppConfig.location)
 
     @yesterday = WxPeriod.yesterday_summary(AppConfig.location)
     @last_hour = WxPeriod.last_hour_summary(AppConfig.location)
