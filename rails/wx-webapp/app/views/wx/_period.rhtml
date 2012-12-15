@@ -568,27 +568,37 @@ UV index
 <font color="#222222">Verdamping&nbsp;mm</font></td>
 <td align="center">
 <font color="#003366">
--
+<% if !@yesterday.et.nil? %>
+<%= @yesterday.inches_to_mm(@yesterday.et.to_f).round(1) %>
+<% end %>
 </font>
 </td>
 <td align="center">
 <font color="#003366">
--
+<% if !@today.et.nil? %>
+<%= @today.inches_to_mm(@today.et.to_f).round(1) %>
+<% end %>
 </font>
 </td>
 <td align="center">
 <font color="#003366">
--
+<% if !@this_week.et.nil? %>
+<%= @this_week.inches_to_mm(@this_week.et.to_f).round(1) %>
+<% end %>
 </font>
 </td>
 <td align="center">
 <font color="#003366">
--
+<% if !@this_month.et.nil? %>
+<%= @this_month.inches_to_mm(@this_month.et.to_f).round(1) %>
+<% end %>
 </font>
 </td>
 <td align="center">
 <font color="#003366">
--
+<% if !@this_year.et.nil? %>
+<%= @this_year.inches_to_mm(@this_year.et.to_f).round(1) %>
+<% end %>
 </font>
 </td>
 </tr>
