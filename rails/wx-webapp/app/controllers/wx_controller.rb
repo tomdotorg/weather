@@ -4,6 +4,7 @@ class WxController < ApplicationController
   include REXML
 
   def index
+    @applet = params[:applet].present?
     periods
     get_current_conditions
     get_noaa_forecast

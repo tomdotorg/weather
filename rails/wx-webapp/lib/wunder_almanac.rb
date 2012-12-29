@@ -7,7 +7,7 @@ class WunderAlmanacManager < WunderBase
   log.level = Logger::INFO
 
   def get_almanac
-    d = Time.now.at_midnight.utc
+    d = Time.now.at_midnight
     a = Climate.find_or_initialize_by_location_and_month_and_day(@location, d.month, d.day)
     if a.new_record? or a.updated_at < d
       c = @api.almanac_for(@location)["almanac"]
