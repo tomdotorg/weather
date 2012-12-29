@@ -4,13 +4,22 @@ class WxController < ApplicationController
   include REXML
 
   def index
-    @applet = params[:applet].present?
+    check_applet_status()
     periods
     get_current_conditions
     get_noaa_forecast
     get_climate
     get_riseset
     get_alerts
+  end
+
+  def enable_applet
+    cookies[:applet_enabled] = { :value => "true", :expires => 1.minute.from_now }
+    redirect_to :action => "index"
+  end
+
+  def check_applet_status
+    @applet = cookies[:applet_enabled].present?
   end
 
   def get_alerts
