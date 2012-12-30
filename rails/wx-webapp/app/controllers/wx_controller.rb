@@ -14,7 +14,7 @@ class WxController < ApplicationController
   end
 
   def enable_applet
-    cookies[:applet_enabled] = { :value => "true", :expires => 1.minute.from_now, :domain => 'tom.org' }
+    cookies[:applet_enabled] = { :value => "true", :expires => 1.minute.from_now }
     redirect_to :action => "index"
   end
 
@@ -31,12 +31,12 @@ class WxController < ApplicationController
   end
 
   def enable_wunderground_forecast
-    cookies[:use_wunderground] = { :value => "true", :expires => 1.minute.from_now, :domain => 'tom.org' }
+    cookies[:use_wunderground] = { :value => "true", :expires => 1.minute.from_now }
     redirect_to :action => "index"
   end
 
   def disable_wunderground_forecast
-    cookies.delete([:use_wunderground], :domain => 'tom.org')
+    cookies.delete([:use_wunderground])
     redirect_to :action => "index"
   end
 
