@@ -14,7 +14,7 @@ class WxController < ApplicationController
   end
 
   def enable_applet
-    cookies[:applet_enabled] = { :value => "true", :expires => 1.minute.from_now }
+    cookies[:applet_enabled] = { :value => "true", :expires => 1.minute.from_now, :domain => 'tom.org' }
     redirect_to :action => "index"
   end
 
@@ -30,9 +30,21 @@ class WxController < ApplicationController
     end
   end
 
+  def enable_wunderground_forecast
+    cookies[:use_wunderground] = { :value => "true", :expires => 1.minute.from_now, :domain => 'tom.org' }
+    redirect_to :action => "index"
+  end
+
+  def disable_wunderground_forecast
+    cookies.delete([:use_wunderground], :domain => 'tom.org')
+    redirect_to :action => "index"
+  end
+
   def get_noaa_forecast
-    @forecast = NoaaForecast.latest(AppConfig.noaa_location)
+    @noaa_forecast = NoaaForecast.latest(AppConfig.noaa_location)
+    @noaa_forecast_available = !@noaa_forecast.nil? and @noaa_forecast.last_retrieved < 6.hours.ago
     @wunder_forecast = WunderForecast.latest(AppConfig.wunderground_location)
+    @wunder_forecast_available = !@wunder_forecast.nil? and @wunder_forecast.last_retrieved < 6.hours.ago
   end
 
   def get_climate

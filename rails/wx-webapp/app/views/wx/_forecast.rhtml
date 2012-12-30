@@ -1,13 +1,15 @@
 <!-- FORECAST -->
 <table border=1 style="text-align:center; width:50%">
-  <% if @forecast != nil && @forecast.last_retrieved > 6.hours.ago %>
+  <% if @noaa_forecast_available and !cookies[:use_wunderground].present? %>
     <tr>
       <th colspan="3" style="font-size:1.5em">
-        NOAA Forecast as of <%= distance_of_time_in_words_to_now(@forecast.last_retrieved, false) %> ago (<%= @forecast.last_retrieved.to_s (:time)  %>)
-        <p>
+        NOAA Forecast as of <%= distance_of_time_in_words_to_now(@noaa_forecast.last_retrieved, false) %> ago (<%= @noaa_forecast.last_retrieved.to_s (:time)  %>)
+          <% if @wunder_forecast_available %>
+        <p>  <%= button_to "Switch to Wunderground Forecast", :controller => :wx, :action => :enable_wunderground_forecast %>
+          <% end %>
       </th>
     </tr>
-    <% @forecast.forecast_periods.each do | pd | %>
+    <% @noaa_forecast.forecast_periods.each do | pd | %>
       <tr>
         <th>
           <%= pd.name %>
@@ -22,11 +24,14 @@
       </th>
     </tr>
     <% end %>
-  <% elsif @wunder_forecast != nil && @wunder_forecast.last_retrieved > 6.hours.ago %>
+  <% elsif @wunder_forecast_available %>
     <tr>
       <th colspan="3" style="font-size:1.5em">
         Wunderground Forecast as of <%= distance_of_time_in_words_to_now(@wunder_forecast.last_retrieved, false) %> ago (<%= @wunder_forecast.last_retrieved.to_s(:time) %>)
         <p>
+          <% if @noaa_forecast_available %>
+        <p>  <%= button_to "Switch to NOAA Forecast", :controller => :wx, :action => :disable_wunderground_forecast %>
+          <% end %>
       </th>
     </tr>
     <% @wunder_forecast.wunder_forecast_periods.each do | pd | %>
