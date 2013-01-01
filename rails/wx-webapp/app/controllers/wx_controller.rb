@@ -1,4 +1,5 @@
 require 'wunder_almanac'
+require 'astro'
 
 class WxController < ApplicationController
   include REXML
@@ -64,11 +65,11 @@ class WxController < ApplicationController
   end
 
   def get_riseset
-    @riseset_today = Riseset.riseset(AppConfig.climate_location, Time.now)
-    @riseset_available = !(@riseset_today.nil?)
-    @riseset_week = Riseset.riseset(AppConfig.climate_location, Time.now + 1.week)
-    @riseset_two_weeks = Riseset.riseset(AppConfig.climate_location, Time.now + 2.weeks)
-    @riseset_month = Riseset.riseset(AppConfig.climate_location, Time.now + 1.month)
+    @riseset_available = true
+    @riseset_today = Astro.get_civil_riseset
+    @riseset_week = Astro.get_civil_riseset(Time.now + 1.week)
+    @riseset_two_weeks = Astro.get_civil_riseset(Time.now + 2.weeks)
+    @riseset_month = Astro.get_civil_riseset(Time.now + 1.month)
   end
 
   def get_airport_conditions
@@ -104,7 +105,7 @@ class WxController < ApplicationController
   def get_current_conditions
     get_airport_conditions
     @current = CurrentCondition.find_by_location(AppConfig.location)
-    @dark = Riseset.dark?(AppConfig.location, Time.now.utc)
+    @dark = Astro.dark?
     # kludge for time sync problems btw station time and web server
     @current.sample_date = Time.now if !@current.nil? and @current.sample_date > Time.now
     @today = WxPeriod.today_summary(AppConfig.location)

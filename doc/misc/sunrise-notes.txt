@@ -1,0 +1,9 @@
+require 'solareventcalculator'
+
+date = Time.now.to_date
+
+long = BigDecimal.new(AppConfig.longitude.to_s)
+lat = BigDecimal.new(AppConfig.latitude.to_s)
+utcOfficialSunrise = calc.compute_utc_official_sunrise
+utcOfficialSunrise.to_time.getlocal
+ => Tue Jan 01 07:13:00 -0500 2013
