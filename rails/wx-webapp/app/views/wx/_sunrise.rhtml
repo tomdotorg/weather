@@ -1,4 +1,4 @@
-<!-- SUNRISE -->
+<!-- SUNRISE AND TWILIGHT -->
 <table border=1 style="width:360;background-color:#C0C0C0;text-align:center" id="SUNRISE">
   <% if @riseset_available %>
     <tr>
@@ -71,4 +71,49 @@
       </td>
     </tr>
   <% end %>
+</table>
+<table border=1 style="width:360;background-color:#C0C0C0;text-align:center" id="TWILIGHT">
+  <tr>
+    <td>
+    </td>
+    <th>
+      Rise
+    </th>
+    <th>
+      Set
+    </th>
+  </tr>
+  <tr>
+    <th>
+      Nautical twilight
+    </th>
+    <td>
+      <%= @nautical[:rise].getlocal.strftime("%I:%M %p") %>
+    </td>
+    <td>
+      <%= @nautical[:set].getlocal.strftime("%I:%M %p") %>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Civil twilight
+    </th>
+    <td>
+      <%= @civil[:rise].getlocal.strftime("%I:%M %p") %>
+    </td>
+    <td>
+      <%= @civil[:set].getlocal.strftime("%I:%M %p") %>
+    </td>
+  </tr>
+  <tr>
+    <th>
+      Astronomical twilight
+    </th>
+    <td>
+      <%= @astronomical[:rise].getlocal.strftime("%I:%M %p") %>
+    </td>
+    <td>
+      <%= @astronomical[:set].getlocal.strftime("%I:%M %p") %>
+    </td>
+  </tr>
 </table>
