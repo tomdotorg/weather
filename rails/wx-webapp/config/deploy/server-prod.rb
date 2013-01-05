@@ -23,7 +23,7 @@ set :deploy_via, :remote_cache
 set :repository_cache, "git_cache"
 set :ssh_options, { :forward_agent => true }
 set :repository, "git@github.com:mitct02/weather.git"
-set :branch, "master"
+set :branch, "prod"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
