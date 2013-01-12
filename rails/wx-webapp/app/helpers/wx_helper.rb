@@ -28,4 +28,7 @@ end
     return a.to_s
   end
 
+  def format_riseset_time(t)
+    t.strftime("%H:%M")
+  end
 end

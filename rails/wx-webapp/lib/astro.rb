@@ -10,7 +10,7 @@ class Astro
 
   def self.daylight(start_time, end_time)
     if end_time < start_time
-      raise ArgumentError, 'end is earlier than start'
+      end_time += 1.day
     end
 
     interval = end_time - start_time

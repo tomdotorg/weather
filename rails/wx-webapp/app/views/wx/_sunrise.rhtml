@@ -5,70 +5,225 @@
       <td>
       </td>
       <td>
+        <b>Dawn</b>
+      </td>
+      <td>
+        <b>Dusk</b>
+      </td>
+      <td>
+        <b>Length</b>
+      </td>
+      <!-- <td><b>Difference</b></td> -->
+      <td>
         <b>Sunrise</b>
       </td>
       <td>
         <b>Sunset</b>
       </td>
       <td>
-        <b>Daylight</b>
+        <b>Length</b>
       </td>
+      <!-- <td><b>Difference</b></td> -->
     </tr>
     <tr>
       <td>
         <b>Today</b>
       </td>
       <td>
-        <%= @riseset_today[:rise].getlocal.strftime("%I:%M %p") %>
+        <%= format_riseset_time(@civil_riseset_today[:rise].getlocal) %>
       </td>
       <td>
-        <%= @riseset_today[:set].getlocal.strftime("%I:%M %p") %>
+        <%= format_riseset_time(@civil_riseset_today[:set].getlocal) %>
       </td>
       <td>
-        <%= @riseset_today[:daylight].strftime("%H:%M") %>
+        <%= @civil_riseset_today[:daylight].strftime("%H:%M") %>
       </td>
+      <!-- <td>TBD</td> -->
+      <td>
+        <%= format_riseset_time(@official_riseset_today[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@official_riseset_today[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @official_riseset_today[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
+    </tr>
+    <tr>
+      <td>
+        <b>Tomorrow</b>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_tomorrow[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_tomorrow[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @civil_riseset_tomorrow[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
+      <td>
+        <%= format_riseset_time(@official_riseset_tomorrow[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@official_riseset_tomorrow[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @official_riseset_tomorrow[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
     </tr>
     <tr>
       <td>
         <b>In a week</b>
       </td>
       <td>
-        <%= @riseset_week[:rise].getlocal.strftime("%I:%M %p") %>
+        <%= format_riseset_time(@civil_riseset_week[:rise].getlocal) %>
       </td>
       <td>
-        <%= @riseset_week[:set].getlocal.strftime("%I:%M %p") %>
+        <%= format_riseset_time(@civil_riseset_week[:set].getlocal) %>
       </td>
       <td>
-        <%= @riseset_week[:daylight].strftime("%H:%M") %>
+        <%= @civil_riseset_week[:daylight].strftime("%H:%M") %>
       </td>
+      <!-- <td>TBD</td> -->
+      <td>
+        <%= format_riseset_time(@official_riseset_week[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@official_riseset_week[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @official_riseset_week[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
     </tr>
     <tr>
       <td>
         <b>In two weeks</b>
       </td>
       <td>
-        <%= @riseset_two_weeks[:rise].getlocal.strftime("%I:%M %p") %>
+        <%= format_riseset_time(@civil_riseset_two_weeks[:rise].getlocal) %>
       </td>
       <td>
-        <%= @riseset_two_weeks[:set].getlocal.strftime("%I:%M %p") %>
+        <%= format_riseset_time(@civil_riseset_two_weeks[:set].getlocal) %>
       </td>
       <td>
-        <%= @riseset_two_weeks[:daylight].strftime("%H:%M") %>
+        <%= @civil_riseset_two_weeks[:daylight].strftime("%H:%M") %>
       </td>
+      <!-- <td>TBD</td> -->
+      <td>
+        <%= format_riseset_time(@official_riseset_two_weeks[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@official_riseset_two_weeks[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @official_riseset_two_weeks[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
     </tr>
     <tr>
       <td>
         <b>In a month</b>
       </td>
       <td>
-        <%= @riseset_month[:rise].getlocal.strftime("%I:%M %p") %>
+        <%= format_riseset_time(@civil_riseset_month[:rise].getlocal) %>
       </td>
       <td>
-        <%= @riseset_month[:set].getlocal.strftime("%I:%M %p") %>
+        <%= format_riseset_time(@civil_riseset_month[:set].getlocal) %>
       </td>
       <td>
-        <%= @riseset_month[:daylight].strftime("%H:%M") %>
+        <%= @civil_riseset_month[:daylight].strftime("%H:%M") %>
       </td>
+      <!-- <td>TBD</td> -->
+      <td>
+        <%= format_riseset_time(@official_riseset_month[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@official_riseset_month[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @official_riseset_month[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
+    </tr>
+    <tr>
+      <td>
+        <b>In 2 months</b>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_two_months[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_two_months[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @civil_riseset_two_months[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
+      <td>
+        <%= format_riseset_time(@official_riseset_two_months[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@official_riseset_two_months[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @official_riseset_two_months[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
+    </tr>
+    <tr>
+      <td>
+        <b>In 3 months</b>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_three_months[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_three_months[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @civil_riseset_three_months[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
+      <td>
+        <%= format_riseset_time(@official_riseset_three_months[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@official_riseset_three_months[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @official_riseset_three_months[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
+    </tr>
+    <tr>
+      <td>
+        <b>In 6 months</b>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_six_months[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_six_months[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @civil_riseset_six_months[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
+      <td>
+        <%= format_riseset_time(@official_riseset_six_months[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@official_riseset_six_months[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @official_riseset_six_months[:daylight].strftime("%H:%M") %>
+      </td>
+      <!-- <td>TBD</td> -->
     </tr>
   <% end %>
 </table>

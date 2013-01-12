@@ -43,11 +43,32 @@ class WxController < ApplicationController
   end
 
   def get_riseset
+    @risesets={}
+#    ree-1.8.7-2010.02 > @risesets = {}
+##     => {}
+#    ree-1.8.7-2010.02 > @risesets[:nautical]={"foo"=>"bar", "bar" => "foo"}
+#     => {"foo"=>"bar", "bar"=>"foo"}
+##    ree-1.8.7-2010.02 > @risesets
+#     => {:nautical=>{"foo"=>"bar", "bar"=>"foo"}}
+#    ree-1.8.7-2010.02 >
     @riseset_available = true
-    @riseset_today = Astro.get_civil_riseset
-    @riseset_week = Astro.get_civil_riseset(Time.now + 1.week)
-    @riseset_two_weeks = Astro.get_civil_riseset(Time.now + 2.weeks)
-    @riseset_month = Astro.get_civil_riseset(Time.now + 1.month)
+    @official_riseset_today = Astro.get_official_riseset
+    @official_riseset_tomorrow = Astro.get_official_riseset(Time.now + 1.day)
+    @official_riseset_week = Astro.get_official_riseset(Time.now + 1.week)
+    @official_riseset_two_weeks = Astro.get_official_riseset(Time.now + 2.weeks)
+    @official_riseset_month = Astro.get_official_riseset(Time.now + 1.month)
+    @official_riseset_two_months = Astro.get_official_riseset(Time.now + 2.months)
+    @official_riseset_three_months = Astro.get_official_riseset(Time.now + 3.months)
+    @official_riseset_six_months = Astro.get_official_riseset(Time.now + 6.months)
+
+    @civil_riseset_today = Astro.get_civil_riseset
+    @civil_riseset_tomorrow = Astro.get_civil_riseset(Time.now + 1.day)
+    @civil_riseset_week = Astro.get_civil_riseset(Time.now + 1.week)
+    @civil_riseset_two_weeks = Astro.get_civil_riseset(Time.now + 2.weeks)
+    @civil_riseset_month = Astro.get_civil_riseset(Time.now + 1.month)
+    @civil_riseset_two_months = Astro.get_civil_riseset(Time.now + 2.months)
+    @civil_riseset_three_months = Astro.get_civil_riseset(Time.now + 3.months)
+    @civil_riseset_six_months = Astro.get_civil_riseset(Time.now + 6.months)
   end
 
   def get_airport_conditions
