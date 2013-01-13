@@ -3,7 +3,11 @@ module WxHelper
 def format_alert(alerts)
     if !alerts.nil?
       a = []
+      @box = false
       alerts.each do |i|
+        if i["significance"] == "S" || i["significance"] == "N"
+          @box = true
+        end
         if i["significance"] != "S" && i["significance"] != "N"
           dep = i["description"]
           a << link_to("#{dep}<br>", "#"+i["phenomena"])

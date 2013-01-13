@@ -22,7 +22,7 @@
       <%= render(:partial => "sunapplet", :layout => false  ) %>
     <% end %>
       <br>
-      <% if @alerts and @alerts.length > 0 %>
+      <% if @alerts and @alerts.length > 0 and @box == false %>
         <table border=1 style="background-color:#C0C0C0;text-align:center;width:360px">
           <tr>
             <td>
@@ -70,11 +70,13 @@
 
 <%= render(:partial => "radarwebcam", :layout => false  ) %>
 
+<%= render(:partial => "forecast", :layout => false  ) %>
+
+
 <% cache(:action => "index", :action_suffix => "graphs") do %>
   <%= render(:partial => "graphs", :layout => false  ) %>
 <% end %>
 
-<%= render(:partial => "forecast", :layout => false  ) %>
 
 <% cache(:action => "index", :action_suffix => "tides") do %>
   <%= render(:partial => "tides", :layout => false  ) %>

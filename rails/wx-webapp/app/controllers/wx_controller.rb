@@ -70,6 +70,9 @@ class WxController < ApplicationController
     @riseset_week = Astro.get_civil_riseset(Time.now + 1.week)
     @riseset_two_weeks = Astro.get_civil_riseset(Time.now + 2.weeks)
     @riseset_month = Astro.get_civil_riseset(Time.now + 1.month)
+    @nautical = Astro.get_nautical_riseset
+    @astronomical = Astro.get_astronomical_riseset
+    @civil = Astro.get_civil_riseset
   end
 
   def get_airport_conditions
