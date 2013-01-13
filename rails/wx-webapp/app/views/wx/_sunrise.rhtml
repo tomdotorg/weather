@@ -13,7 +13,7 @@
       <td>
         <b>Length</b>
       </td>
-      <!-- <td><b>Difference</b></td> -->
+      <td><b>Difference from Today</b></td>
       <td>
         <b>Sunrise</b>
       </td>
@@ -23,7 +23,7 @@
       <td>
         <b>Length</b>
       </td>
-      <!-- <td><b>Difference</b></td> -->
+      <td><b>Difference from Today</b></td>
     </tr>
     <tr>
       <td>
@@ -38,7 +38,7 @@
       <td>
         <%= @civil_riseset_today[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td></td>
       <td>
         <%= format_riseset_time(@official_riseset_today[:rise].getlocal) %>
       </td>
@@ -48,7 +48,7 @@
       <td>
         <%= @official_riseset_today[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td></td>
     </tr>
     <tr>
       <td>
@@ -63,7 +63,7 @@
       <td>
         <%= @civil_riseset_tomorrow[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @civil_offset_tomorrow[:negative] ? "-" : "+" %><%= @civil_offset_tomorrow[:time].strftime("%H:%M") %></td>
       <td>
         <%= format_riseset_time(@official_riseset_tomorrow[:rise].getlocal) %>
       </td>
@@ -73,7 +73,7 @@
       <td>
         <%= @official_riseset_tomorrow[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @official_offset_tomorrow[:negative] ? "-" : "+" %><%= @official_offset_tomorrow[:time].strftime("%H:%M") %></td>
     </tr>
     <tr>
       <td>
@@ -88,7 +88,7 @@
       <td>
         <%= @civil_riseset_week[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @civil_offset_week[:negative] ? "-" : "+" %><%= @civil_offset_week[:time].strftime("%H:%M") %></td>
       <td>
         <%= format_riseset_time(@official_riseset_week[:rise].getlocal) %>
       </td>
@@ -98,7 +98,7 @@
       <td>
         <%= @official_riseset_week[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @official_offset_week[:negative] ? "-" : "+" %><%= @official_offset_week[:time].strftime("%H:%M") %></td>
     </tr>
     <tr>
       <td>
@@ -113,7 +113,7 @@
       <td>
         <%= @civil_riseset_two_weeks[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @civil_offset_two_weeks[:negative] ? "-" : "+" %><%= @civil_offset_two_weeks[:time].strftime("%H:%M") %></td>
       <td>
         <%= format_riseset_time(@official_riseset_two_weeks[:rise].getlocal) %>
       </td>
@@ -123,7 +123,7 @@
       <td>
         <%= @official_riseset_two_weeks[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @official_offset_two_weeks[:negative] ? "-" : "+" %><%= @official_offset_two_weeks[:time].strftime("%H:%M") %></td>
     </tr>
     <tr>
       <td>
@@ -138,7 +138,7 @@
       <td>
         <%= @civil_riseset_month[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @civil_offset_month[:negative] ? "-" : "+" %><%= @civil_offset_month[:time].strftime("%H:%M") %></td>
       <td>
         <%= format_riseset_time(@official_riseset_month[:rise].getlocal) %>
       </td>
@@ -148,7 +148,7 @@
       <td>
         <%= @official_riseset_month[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @official_offset_month[:negative] ? "-" : "+" %><%= @official_offset_month[:time].strftime("%H:%M") %></td>
     </tr>
     <tr>
       <td>
@@ -163,7 +163,7 @@
       <td>
         <%= @civil_riseset_two_months[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @civil_offset_two_months[:negative] ? "-" : "+" %><%= @civil_offset_two_months[:time].strftime("%H:%M") %></td>
       <td>
         <%= format_riseset_time(@official_riseset_two_months[:rise].getlocal) %>
       </td>
@@ -173,7 +173,7 @@
       <td>
         <%= @official_riseset_two_months[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @official_offset_two_months[:negative] ? "-" : "+" %><%= @official_offset_two_months[:time].strftime("%H:%M") %></td>
     </tr>
     <tr>
       <td>
@@ -188,7 +188,7 @@
       <td>
         <%= @civil_riseset_three_months[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @civil_offset_three_months[:negative] ? "-" : "+" %><%= @civil_offset_three_months[:time].strftime("%H:%M") %></td>
       <td>
         <%= format_riseset_time(@official_riseset_three_months[:rise].getlocal) %>
       </td>
@@ -198,7 +198,7 @@
       <td>
         <%= @official_riseset_three_months[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @official_offset_three_months[:negative] ? "-" : "+" %><%= @official_offset_three_months[:time].strftime("%H:%M") %></td>
     </tr>
     <tr>
       <td>
@@ -213,7 +213,7 @@
       <td>
         <%= @civil_riseset_six_months[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @civil_offset_six_months[:negative] ? "-" : "+" %><%= @civil_offset_six_months[:time].strftime("%H:%M") %></td>
       <td>
         <%= format_riseset_time(@official_riseset_six_months[:rise].getlocal) %>
       </td>
@@ -223,7 +223,7 @@
       <td>
         <%= @official_riseset_six_months[:daylight].strftime("%H:%M") %>
       </td>
-      <!-- <td>TBD</td> -->
+      <td><%= @official_offset_six_months[:negative] ? "-" : "+" %><%= @official_offset_six_months[:time].strftime("%H:%M") %></td>
     </tr>
   <% end %>
 </table>

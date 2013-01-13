@@ -1,5 +1,6 @@
 require 'wunder_almanac'
 require 'astro'
+require 'wx_utils'
 
 class WxController < ApplicationController
   include REXML
@@ -54,21 +55,49 @@ class WxController < ApplicationController
     @riseset_available = true
     @official_riseset_today = Astro.get_official_riseset
     @official_riseset_tomorrow = Astro.get_official_riseset(Time.now + 1.day)
+    @official_offset_tomorrow = WxUtils.hhmm_between_dates(@official_riseset_today[:daylight],
+                                                           @official_riseset_tomorrow[:daylight])
     @official_riseset_week = Astro.get_official_riseset(Time.now + 1.week)
+    @official_offset_week = WxUtils.hhmm_between_dates(@official_riseset_today[:daylight],
+                                                           @official_riseset_week[:daylight])
     @official_riseset_two_weeks = Astro.get_official_riseset(Time.now + 2.weeks)
+    @official_offset_two_weeks = WxUtils.hhmm_between_dates(@official_riseset_today[:daylight],
+                                                           @official_riseset_two_weeks[:daylight])
     @official_riseset_month = Astro.get_official_riseset(Time.now + 1.month)
+    @official_offset_month = WxUtils.hhmm_between_dates(@official_riseset_today[:daylight],
+                                                           @official_riseset_month[:daylight])
     @official_riseset_two_months = Astro.get_official_riseset(Time.now + 2.months)
+    @official_offset_two_months = WxUtils.hhmm_between_dates(@official_riseset_today[:daylight],
+                                                           @official_riseset_two_months[:daylight])
     @official_riseset_three_months = Astro.get_official_riseset(Time.now + 3.months)
+    @official_offset_three_months = WxUtils.hhmm_between_dates(@official_riseset_today[:daylight],
+                                                           @official_riseset_three_months[:daylight])
     @official_riseset_six_months = Astro.get_official_riseset(Time.now + 6.months)
+    @official_offset_six_months = WxUtils.hhmm_between_dates(@official_riseset_today[:daylight],
+                                                           @official_riseset_six_months[:daylight])
 
     @civil_riseset_today = Astro.get_civil_riseset
     @civil_riseset_tomorrow = Astro.get_civil_riseset(Time.now + 1.day)
+    @civil_offset_tomorrow = WxUtils.hhmm_between_dates(@civil_riseset_today[:daylight],
+                                                        @civil_riseset_tomorrow[:daylight])
     @civil_riseset_week = Astro.get_civil_riseset(Time.now + 1.week)
+    @civil_offset_week = WxUtils.hhmm_between_dates(@civil_riseset_today[:daylight],
+                                                        @civil_riseset_week[:daylight])
     @civil_riseset_two_weeks = Astro.get_civil_riseset(Time.now + 2.weeks)
+    @civil_offset_two_weeks = WxUtils.hhmm_between_dates(@civil_riseset_today[:daylight],
+                                                        @civil_riseset_two_weeks[:daylight])
     @civil_riseset_month = Astro.get_civil_riseset(Time.now + 1.month)
+    @civil_offset_month = WxUtils.hhmm_between_dates(@civil_riseset_today[:daylight],
+                                                        @civil_riseset_month[:daylight])
     @civil_riseset_two_months = Astro.get_civil_riseset(Time.now + 2.months)
+    @civil_offset_two_months = WxUtils.hhmm_between_dates(@civil_riseset_today[:daylight],
+                                                        @civil_riseset_two_months[:daylight])
     @civil_riseset_three_months = Astro.get_civil_riseset(Time.now + 3.months)
+    @civil_offset_three_months = WxUtils.hhmm_between_dates(@civil_riseset_today[:daylight],
+                                                        @civil_riseset_three_months[:daylight])
     @civil_riseset_six_months = Astro.get_civil_riseset(Time.now + 6.months)
+    @civil_offset_six_months = WxUtils.hhmm_between_dates(@civil_riseset_today[:daylight],
+                                                        @civil_riseset_six_months[:daylight])
   end
 
   def get_airport_conditions
