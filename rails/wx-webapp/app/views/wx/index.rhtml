@@ -70,11 +70,11 @@
 
 <%= render(:partial => "radarwebcam", :layout => false  ) %>
 
+<%= render(:partial => "forecast", :layout => false  ) %>
+
 <% cache(:action => "index", :action_suffix => "graphs") do %>
   <%= render(:partial => "graphs", :layout => false  ) %>
 <% end %>
-
-<%= render(:partial => "forecast", :layout => false  ) %>
 
 <% cache(:action => "index", :action_suffix => "tides") do %>
   <%= render(:partial => "tides", :layout => false  ) %>
