@@ -21,7 +21,7 @@ function ImageRefresh() {
   <% if !@dark %>
     <tr>
       <td colspan="2">
-        View to the South - updated every <b>two seconds</b>
+        View to the South - updated every <b>five seconds</b>
       </td>
     </tr>
     <tr>
@@ -31,7 +31,7 @@ function ImageRefresh() {
     </tr>
     <tr>
       <td colspan="2">
-        <img src="http://home.tom.org:60002/SnapshotJPEG?Resolution=640x480&Quality=Standard&Count=0" name="CameraImage" border="0" hspace="0" vspace="0" width="640" height="480" onload="setTimeout('ImageRefresh()', 2000)" onerror="setTimeout('ImageRefresh()', 60000)" onabort="setTimeout('ImageRefresh()', 60000)" alt="" >
+        <img src="http://home.tom.org:60002/SnapshotJPEG?Resolution=640x480&Quality=Standard&Count=0" name="CameraImage" border="0" hspace="0" vspace="0" width="640" height="480" onload="setTimeout('ImageRefresh()', 5000)" onerror="setTimeout('ImageRefresh()', 60000)" onabort="setTimeout('ImageRefresh()', 60000)" alt="" >
       </td>
     </tr>
   <% end %>
