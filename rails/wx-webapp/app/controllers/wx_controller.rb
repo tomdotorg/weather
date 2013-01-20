@@ -34,7 +34,7 @@ class WxController < ApplicationController
 
   def alerts_table_setup
     @alerts.each do |a|
-      if a["significance"] != "S" || a["significance"] != "N"
+      if a["significance"] != "S" and a["significance"] != "N"
         return @box = true
       else
         return @box = false
