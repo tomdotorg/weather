@@ -12,6 +12,7 @@ class WxController < ApplicationController
     get_climate
     get_riseset
     get_alerts
+    alerts_table_setup
   end
 
   def enable_applet
@@ -28,6 +29,16 @@ class WxController < ApplicationController
     @alert_list = []
     @alerts.each do |a|
       @alert_list << a.description
+    end
+  end
+
+  def alerts_table_setup
+    @alerts.each do |a|
+      if a["significance"] != "S" || a["significance"] != "N"
+        return @box = true
+      else
+        return @box = false
+      end
     end
   end
 
