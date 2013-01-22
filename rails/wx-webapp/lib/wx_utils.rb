@@ -99,9 +99,6 @@ module WxUtils
     (inches * 25.4).to_f.round_with_precision(2)
   end
 
-  SECONDS_IN_AN_HOUR = 60 * 60
-  SECONDS_IN_A_DAY = SECONDS_IN_AN_HOUR * 24
-
   # return a Time structure with hhmm populated with the hours and mins between the parameters
   # :negative is true if d1 is after d2
   def self.hhmm_between_dates(d1, d2)

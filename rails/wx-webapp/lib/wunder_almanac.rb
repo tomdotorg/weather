@@ -13,11 +13,13 @@ class WunderAlmanacManager < WunderBase
       c = @api.almanac_for(@location)["almanac"]
       a.avg_high_temp = c["temp_high"]["normal"]["F"].to_i
       a.avg_low_temp = c["temp_low"]["normal"]["F"].to_i
-      a.record_high_temp = c["temp_high"]["record"]["F"].to_i
-      a.record_high_temp_year = c["temp_high"]["recordyear"].to_i
-      a.record_low_temp = c["temp_low"]["record"]["F"].to_i
-      a.record_low_temp_year = c["temp_low"]["recordyear"].to_i
-      a.mean_temp = (a.avg_high_temp + a.avg_low_temp) / 2
+      if c["temp_high"]["record"]
+        a.record_high_temp = c["temp_high"]["record"]["F"].to_i
+        a.record_high_temp_year = c["temp_high"]["recordyear"].to_i
+        a.record_low_temp = c["temp_low"]["record"]["F"].to_i
+        a.record_low_temp_year = c["temp_low"]["recordyear"].to_i
+        a.mean_temp = (a.avg_high_temp + a.avg_low_temp) / 2
+      end
       a.save!
     end
     return a
