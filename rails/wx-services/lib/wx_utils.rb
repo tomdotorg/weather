@@ -96,7 +96,18 @@ module WxUtils
   # rain conversion
   # 1 inches = 25.4 millimeters
   def inches_to_mm(inches)
-    (inches * 25.4).to_f.round_with_precision(4)
+    (inches * 25.4).to_f.round_with_precision(2)
+  end
+
+  # return a Time structure with hhmm populated with the hours and mins between the parameters
+  # :negative is true if d1 is after d2
+  def self.hhmm_between_dates(d1, d2)
+    negate_answer = d1 > d2
+    interval = (d2 - d1).abs % SECONDS_IN_A_DAY
+    hours = (interval / SECONDS_IN_AN_HOUR).to_i
+    mins = ((interval % SECONDS_IN_AN_HOUR) / 60).to_i
+    tmp = Time.now
+    return { :time => Time.gm(tmp.year, tmp.month, tmp.day, hours, mins), :negative => negate_answer }
   end
 
 end

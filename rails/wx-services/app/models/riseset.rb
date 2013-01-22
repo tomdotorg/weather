@@ -16,8 +16,6 @@ class Riseset < ActiveRecord::Base
     return ((date < r[:rise] - 1.hour) or (date >= r[:set] + 1.hour))
   end
 
-  SECONDS_IN_AN_HOUR = 60 * 60
-
   # send it in in localtime to avoid logic around UTC
   # TODO - have this handle end times that are the next day
   # (only a problem if time is a time only and not a date/time type)
