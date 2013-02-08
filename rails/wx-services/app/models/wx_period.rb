@@ -150,6 +150,24 @@ class WxPeriod < Period
     end
   end
 
+  def hi_uv_date(pd, uv, location)
+    a = ArchiveRecord.find(:first, :conditions => "location = '#{location}' and date >= '#{pd.start_time_sql}' and date < '#{pd.end_time_sql}' and high_uv_index = '#{uv}'", :order => "date desc")
+    if (a != nil) then
+      a.date != nil ? a.date : nil
+    else
+      nil
+    end
+  end
+
+  def hi_solar_date(pd, solar, location)
+    a = ArchiveRecord.find(:first, :conditions => "location = '#{location}' and date >= '#{pd.start_time_sql}' and date < '#{pd.end_time_sql}' and high_solar_radiation = '#{solar}'", :order => "date desc")
+    if (a != nil) then
+      a.date != nil ? a.date : nil
+    else
+      nil
+    end
+  end
+
   def gust(pd, gust, location)
     a = ArchiveRecord.find(:first, :conditions => "location = '#{location}' and date >= '#{pd.start_time_sql}' and date < '#{pd.end_time_sql}' and high_wind_speed = '#{gust}'", :order => "date desc")
     if (a != nil) then
@@ -182,7 +200,8 @@ class WxPeriod < Period
                                        min(extra_temp1) as lowExtraTemp1,
                                        min(average_apparent_temp) as lowWindchill,
                                        sum(rainfall) as rain,
-                                       sum(et) as et,
+                                       max(high_uv_index) as uv,
+                                       max(high_solar_radiation) as solar,
                                        avg(high_outside_temp) - 65.0 as degreeDays
                                     from archive_records d 
                                     where d.location = '#{location}' 
@@ -190,6 +209,8 @@ class WxPeriod < Period
                                        and d.date <= '#{pd.end_time_sql}';")
     #FIXME - needs massive refactoring of this class to get rid of the statics
     my_pd = WxPeriod.new(pd.start_time, pd.end_time)
+    rs[0]["hiUVDate"] = my_pd.hi_uv_date(my_pd, rs[0]["uv"], location)
+    rs[0]["hiSolarDate"] = my_pd.hi_solar_date(my_pd, rs[0]["solar"], location)
     rs[0]["hiTempDate"] = my_pd.hi_temp_date(my_pd, rs[0]["hiTemp"], location)
     rs[0]["lowTempDate"] = my_pd.low_temp_date(my_pd, rs[0]["lowTemp"], location)
     rs[0]["hiExtraTemp1Date"] = my_pd.hi_extra_temp1_date(my_pd, rs[0]["hiExtraTemp1"], location)
