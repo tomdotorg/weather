@@ -200,6 +200,7 @@ class WxPeriod < Period
                                        min(extra_temp1) as lowExtraTemp1,
                                        min(average_apparent_temp) as lowWindchill,
                                        sum(rainfall) as rain,
+					sum(et) as et,
                                        max(high_uv_index) as uv,
                                        max(high_solar_radiation) as solar,
                                        avg(high_outside_temp) - 65.0 as degreeDays
