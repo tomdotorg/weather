@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121230110900) do
+ActiveRecord::Schema.define(:version => 20130208202510) do
 
   create_table "alerts", :force => true do |t|
     t.string   "location"
@@ -340,6 +340,10 @@ ActiveRecord::Schema.define(:version => 20121230110900) do
     t.datetime "hiExtraTemp1Date"
     t.datetime "lowExtraTemp1Date"
     t.float    "et"
+    t.integer  "uv"
+    t.datetime "hiUVDate"
+    t.integer  "solar"
+    t.datetime "hiSolarDate"
   end
 
   add_index "past_summaries", ["hiDewpointDate"], :name => "index_past_summaries_on_hiDewpointDate"
