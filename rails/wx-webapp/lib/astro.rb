@@ -63,8 +63,8 @@ class Astro
 
     # a very conservative measurement of light and dark. when in doubt, it's light.
   def self.dark?(tm = Time.now)
-    r = self.get_nautical_riseset(tm.to_date)
-    return (tm < r[:rise] or tm >= r[:set])
+    r = self.get_official_riseset(tm.to_date)
+    return (tm < (r[:rise] - 1.hours) or tm >= (r[:set] + 1.hours))
   end
 
 end
