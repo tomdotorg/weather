@@ -10,15 +10,15 @@
   <TD class="tabledetail" ALIGN="CENTER">Temperatuur&nbsp;&deg;C<br>
     <font color="#003366">
     <b>
-    <%= @current.outside_temperature_m %>
+    <%= @current.outside_temperature_m.round(1) %>
 
     </b>
     </font>
   </TD>
- <TD class="tabledetail" ALIGN="CENTER">Voelt als&nbsp;&deg;C<br>
+ <TD nowrap class="tabledetail" ALIGN="CENTER">Voelt als&nbsp;&deg;C<br>
   <font color="#003366">
   <b>
-    <%= @current.apparent_temp_m %>
+    <%= @current.apparent_temp_m.round(1) %>
     </b>
     </font>
   </TD>
@@ -31,14 +31,14 @@
   <TD class="tabledetail" ALIGN=CENTER>Dauwpunt&nbsp;&deg;C<BR>
   <font color="#003366">
   <b>
-  <%= @current.dewpoint_m %>
+  <%= @current.dewpoint_m.round(1) %>
   </b>
   </font>
   </TD>
   <TD class="tabledetail" ALIGN="CENTER">Grasminimum&nbsp;&deg;C<br>
   <font color="#003366">
   <b>
-    <%= @current.extra_temp1_m %>
+    <%= @current.extra_temp1_m.round(1) %>
     </b>
     </font>
   </TD>
@@ -46,7 +46,7 @@
 </TR>
 
 <TR valign="top">
-  <TD class="tabledetail" ALIGN="CENTER">Luchtdruk&nbsp;hPa<br>
+  <TD nowrap class="tabledetail" ALIGN="CENTER">Luchtdruk&nbsp;hPa<br>
   <font color="#003366">
   <b>
     <% pressurestatus = @current.bar_status %>
@@ -116,7 +116,7 @@
   <% if winddirection == "NNW" %>
   <% winddirection = "NNW" %>
   <% end %>
-  <%= @current.windspeed_m %>; <%= winddirection %>
+  <%= @current.windspeed_m.round(1) %>; <%= winddirection %>
   <% else %>
   Niet beschikbaar
   <% end %>
@@ -126,14 +126,14 @@
   <TD class="tabledetail" ALIGN=CENTER>Vocht&nbsp;%<br>
   <font color="#003366">
   <b>
-    <%= @current.outside_humidity %>
+    <%= @current.outside_humidity.to_i %>
     </b>
     </font>
   </TD>
   <TD class="tabledetail" ALIGN="CENTER">Zonneschijn&nbsp;W/m&#178;<br>
   <font color="#003366">
   <b>
-    <%= @current.solar_radiation %>
+    <%= @current.solar_radiation.to_i %>
     </b>
     </font>
   </TD>
@@ -146,7 +146,7 @@
   <TD class="tabledetail" ALIGN=CENTER>UV-index<br>
   <font color="#003366">
   <b>
-    <%= (@current.uv.to_f/10).round(1) %>
+    <%= (@current.uv.to_f).round(1) %>
     </b>
     </font>
   </TD>
@@ -154,14 +154,19 @@
 
 <% if @current.is_raining %>
     <font color="#222222">
-      <b>Regenintensiteit <%= @current.rain_rate_m.round(1) %> mm per uur</b></font>
+      <b>Regenintensiteit</br> 
+    <font color="#003366">
+<%= @current.rain_rate_m.round(1) %> mm per uur</b></font>
 <% else %>
-  <% if !@last_rain.nil? %>
-    <font color="#222222">
-	<% lastrainperiod = distance_of_time_in_words_to_now(@last_rain, true) %>
+  <% if @current.last_rain!="01-01-1970" %>
+	<% lastrainperiod = distance_of_time_in_words_to_now(@current.last_rain, true) %>
+	<% if lastrainperiod.include? "half a minute" %>
+	<% lastrainperiod['half a minute'] = 'minuutje' %>
+	<% end %>
 	<% if lastrainperiod.include? "minutes" %>
 	<% lastrainperiod['minutes'] = 'minuten' %>
 	<% end %>
+
 	<% if lastrainperiod.include? "hours" %>
 	<% lastrainperiod['hours'] = 'uur' %>
 	<% end %>
@@ -185,7 +190,6 @@
 	<% end %>
         <b>Laatste keer geregend:</b> <font color="#003366"><b><%= lastrainperiod %> geleden</b></font></font>
   <% end %>
-
   </td>
 </TR>
 

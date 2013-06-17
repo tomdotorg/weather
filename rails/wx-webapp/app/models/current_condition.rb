@@ -44,6 +44,12 @@ class CurrentCondition < ActiveRecord::Base
     a.date
   end
 
+  def last_rain
+    a = ArchiveRecord.find(:first, :conditions => "rainfall > 0", :order => "date desc")
+    if a.nil? then a = "01-01-1970" else a.date end
+  end
+
+
   def twentyfour_hour_rain
     start_tm = 24.hours.ago.utc
     ArchiveRecord.sum(:rainfall, :conditions => "date >= \'#{start_tm.to_s(:db)}\' and location = \'#{location}\'")
@@ -69,6 +75,56 @@ class CurrentCondition < ActiveRecord::Base
       dewpoint > trend_record.avgDewpoint ? "Rising" : "Falling"
     end
   end
+
+  def bar_status
+    if trend_record == nil or pressure == trend_record.avgPressure then
+      return "Steady"
+    else 
+      pressure > trend_record.avgPressure ? "Rising" : "Falling"
+    end
+  end
+
+
+  def outside_temperature_m
+    return to_c(outside_temperature).round_with_precision(1)
+  end
+
+  def apparent_temp_m
+    return to_c(calc_apparent_temp(outside_temperature, outside_humidity, windspeed)).round_with_precision(1)
+  end
+
+  def dewpoint_m
+    return to_c(dewpoint).round_with_precision(1)
+  end
+
+  def extra_temp1_m
+    return to_c(extra_temp1).round_with_precision(1)
+  end
+
+
+  def pressure_m
+    return inches_of_hg_to_mb(pressure).round_with_precision(1)
+  end
+
+  def windspeed_m
+    return mph_to_mps(windspeed).round_with_precision(1)
+  end
+
+  def rain_rate_m
+    return inches_to_mm(rain_rate)
+  end
+
+  def is_raining
+    if rain_rate.nil?
+      return nil
+    elsif rain_rate > 0.0
+      return true
+    else
+      return false
+    end
+  end
+
+
           
   protected
     

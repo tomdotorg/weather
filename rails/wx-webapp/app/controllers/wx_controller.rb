@@ -2,44 +2,45 @@ require 'noaa_forecast'
 
 class WxController < ApplicationController
   include REXML
+  #include Cache
 
   def show
     render :action => params[:page]
     end
 
   def dynamisch
-    periods
-    get_current_conditions
+#    periods
+#    get_current_conditions
 # only call one of get_xxx_forecast since the @forecast get overridden
 # TODO: externalize which forecast capability to use
-    get_wunder_forecast
 #    get_noaa_forecast
-    get_climate
-    get_riseset
+#    get_climate
+#    get_riseset
     end
 
   def dynamisch1
-    periods
-    get_current_conditions
+#    periods
+#    get_current_conditions
 # only call one of get_xxx_forecast since the @forecast get overridden
 # TODO: externalize which forecast capability to use
-    get_wunder_forecast
 #    get_noaa_forecast
-    get_climate
-    get_riseset
+#    get_climate
+#    get_riseset
     end
 
 
   def index
     periods
     get_current_conditions
-    get_wunder_forecast
-    get_climate
+    get_noaa_forecast
+#    get_climate
     get_riseset
   end
 
   def get_noaa_forecast
     @forecast = NoaaForecast.latest(AppConfig.noaa_location)
+    @wunder_forecast = WunderForecast.latest(AppConfig.wunderground_location)
+
   end
 
   def get_wunder_conditions
@@ -84,31 +85,24 @@ class WxController < ApplicationController
     end
   end
 
-  def get_wunder_forecast
-      @forecast = WunderForecast.latest(AppConfig.noaa_location) 
-      @forecast_transposed = WunderForecast.latest(AppConfig.noaa_location)
-      @fclong = @forecast_transposed.wunder_forecast_period_longs.to_a
-      @forecast_long = @fclong.map { |e| [e.date, e.high_m, e.low_m, e.icon_location, e.conditions] }.transpose
-          
-  end
-
-
   def periods
     #hack to make yearly rainfall and yearly evaporation (both in current_conditions) available in periods.
     #this is more efficient (as the data is in current conditions anyway) than to calculate data in this_year_summary
     @current = CurrentCondition.find_by_location(AppConfig.location)
     #end of hack
-
-    @today = WxPeriod.today_summary(AppConfig.location)
-    @this_hour = WxPeriod.this_hour_summary(AppConfig.location)
-    @this_week = WxPeriod.this_week_summary(AppConfig.location)
-    @this_month = WxPeriod.this_month_summary(AppConfig.location)
     @this_year = WxPeriod.this_year_summary(AppConfig.location)
 
     @yesterday = WxPeriod.yesterday_summary(AppConfig.location)
     @last_hour = WxPeriod.last_hour_summary(AppConfig.location)
     @last_week = WxPeriod.last_week_summary(AppConfig.location)
     @last_month = WxPeriod.last_month_summary(AppConfig.location)
+
+    @today = WxPeriod.today_summary(AppConfig.location)
+    @this_hour = WxPeriod.this_hour_summary(AppConfig.location)
+    @this_week = WxPeriod.this_week_summary(AppConfig.location)
+    @this_month = WxPeriod.this_month_summary(AppConfig.location)
+    @this_year = WxPeriod.this_year_summary(AppConfig.location)
+    #update_current_cache(AppConfig.location)
   end
 
   def last_rain
@@ -117,7 +111,7 @@ class WxController < ApplicationController
   end
   
   def get_current_conditions
-    get_noaa_conditions
+    #get_noaa_conditions
     @current = CurrentCondition.find_by_location(AppConfig.location)
     @dark = Riseset.dark?(AppConfig.location, Time.now.utc)
     # kludge for time sync problems btw station time and web server

@@ -23,43 +23,52 @@ module Cache
   #    if so, set the attribute and construct a method call for that field's date setter and call it
   # same with lows
 
-  def update_current_cache(location)
+
+  #def update_current_cache(location)
     #check today
-    this_hour = PastSummary.find_by_period_and_location(:this_hour, location)
+    this_hour = PastSummary.find_by_period_and_location(:this_hour, AppConfig.location)
     # update extremes here
     if this_hour.nil? or this_hour.updated_at < 2.minutes.ago # TODO make this a config parameter w/ a default of 10 mins
-      pd = WxPeriod.query(Period.this_hour, location)
-      WxPeriod.add_to_db(pd, location) unless pd.avgTemp == nil
+      pd = WxPeriod.query(Period.this_hour, AppConfig.location)
+      WxPeriod.add_to_db(pd, AppConfig.location) unless pd.avgTemp == nil
     end
 
     #check today
-    today = PastSummary.find_by_period_and_location(:today, location)
+    today = PastSummary.find_by_period_and_location(:today, AppConfig.location)
     # update extremes here
     if today.nil? or today.updated_at < 5.minutes.ago # TODO make this a config parameter w/ a default of 10 mins
-      pd = WxPeriod.query(Period.today, location)
-      WxPeriod.add_to_db(pd, location) unless pd.avgTemp == nil
+      pd = WxPeriod.query(Period.today, AppConfig.location)
+      WxPeriod.add_to_db(pd, AppConfig.location) unless pd.avgTemp == nil
     end
 
     # dont forget last rain
     # check extremes here and update if necessary
     #check this_week
-    this_week = PastSummary.find_by_period_and_location(:this_week, location)
+    this_week = PastSummary.find_by_period_and_location(:this_week, AppConfig.location)
 
     if this_week.nil? or this_week.updated_at < 1.hour.ago # TODO make this a config parameter w/ a default of 1 hour
-      pd = WxPeriod.query(Period.this_week, location)
-      WxPeriod.add_to_db(pd, location) unless pd.avgTemp == nil
+      pd = WxPeriod.query(Period.this_week, AppConfig.location)
+      WxPeriod.add_to_db(pd, AppConfig.location) unless pd.avgTemp == nil
     end
 
     #check this_month
-    this_month = PastSummary.find_by_period_and_location(:this_month, location)
+    this_month = PastSummary.find_by_period_and_location(:this_month, AppConfig.location)
 
     if this_month.nil? or this_month.updated_at < 1.hour.ago # TODO make this a config parameter w/ a default of 1 hour
-      pd = WxPeriod.query(Period.this_month, location)
-      WxPeriod.add_to_db(pd, location) unless pd.avgTemp == nil
+      pd = WxPeriod.query(Period.this_month, AppConfig.location)
+      WxPeriod.add_to_db(pd, AppConfig.location) unless pd.avgTemp == nil
+    end
+
+    #check this_year
+    this_year = PastSummary.find_by_period_and_location(:this_year, AppConfig.location)
+
+    if this_year.nil? or this_year.updated_at < 1.hour.ago # TODO make this a config parameter w/ a default of 1 hour
+      pd = WxPeriod.query(Period.this_year, AppConfig.location)
+      WxPeriod.add_to_db(pd, AppConfig.location) unless pd.avgTemp == nil
     end
 
     #update_extremes(archive_record)
-  end
+  #end
 
   def update_extremes(archive_record)
     # check to see if the current record being posted represents new highs, lows, etc.
@@ -124,4 +133,7 @@ module Cache
   def check_this_hour(archive_record)
     # code here
   end
+
+#update_current_cache(AppConfig.location)
+
 end

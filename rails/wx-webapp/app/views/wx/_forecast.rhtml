@@ -1,132 +1,43 @@
-<TABLE BORDER=0 ALIGN="CENTER" WIDTH="100%" >
-<tr class="tabletop">
-<td align="center" colspan="7" width="100%">
-Verwachting de komende dagen
-</td>
-</tr>
-
-<% if @forecast != nil && @forecast.last_retrieved > 60.hours.ago 
-
-rowcount = 0
-translation_to_DUTCH = Array.new
-day = Array.new
-
-@forecast_long.each do | pdlong |
-rowcount+=1
-
-if rowcount == 1
-    for i in 0..5 do
-    if pdlong[i].wday==0 then day[i] = "Zo" end
-    if pdlong[i].wday==1 then day[i] = "Ma" end
-    if pdlong[i].wday==2 then day[i] = "Di" end
-    if pdlong[i].wday==3 then day[i] = "Wo" end
-    if pdlong[i].wday==4 then day[i] = "Do" end
-    if pdlong[i].wday==5 then day[i] = "Vr" end
-    if pdlong[i].wday==6 then day[i] = "Za" end
-    end
-end
-
-if rowcount == 5
-    for i in 0..5 do
-    case
-    when pdlong[i] == "Chance of Flurries" then translation_to_DUTCH[i] = "Kans sneeuwbui"
-    when pdlong[i] == "Chance of Rain" then translation_to_DUTCH[i] = "Kans regen"
-    when pdlong[i] == "Chance of Freezing Rain" then translation_to_DUTCH[i] = "Kans ijzel"
-    when pdlong[i] == "Chance of Sleet" then translation_to_DUTCH[i] = "Kans natte sneeuw" 
-    when pdlong[i] == "Chance of Snow" then translation_to_DUTCH[i] = "Kans sneeuw"
-    when pdlong[i] == "Chance of Thunderstorms" then translation_to_DUTCH[i] = "Kans onweersbuien"
-    when pdlong[i] == "Chance of a Thunderstorm" then translation_to_DUTCH[i] = "Kans onweersbui"
-    when pdlong[i] == "Clear" then translation_to_DUTCH[i] = "Onbewolkt"
-    when pdlong[i] == "Cloudy" then translation_to_DUTCH[i] = "Half bewolkt"
-    when pdlong[i] == "Flurries" then translation_to_DUTCH[i] = "Sneeuwbui"
-    when pdlong[i] == "Fog" then translation_to_DUTCH[i] = "Mist"
-    when pdlong[i] == "Haze" then translation_to_DUTCH[i] = "Nevel"
-    when pdlong[i] == "Mostly Cloudy" then translation_to_DUTCH[i] = "Zwaar bewolkt"
-    when pdlong[i] == "Mostly Sunny" then translation_to_DUTCH[i] = "Overwegend zonnig"
-    when pdlong[i] == "Partly Cloudy" then translation_to_DUTCH[i] = "Licht bewolkt"
-    when pdlong[i] == "Partly Sunny" then translation_to_DUTCH[i] = "Zonnige perioden"
-    when pdlong[i] == "Freezing Rain" then translation_to_DUTCH[i] = "IJzel"
-    when pdlong[i] == "Rain" then translation_to_DUTCH[i] = "Regen"
-    when pdlong[i] == "Sleet" then translation_to_DUTCH[i] = "Natte sneeuw"
-    when pdlong[i] == "Snow" then translation_to_DUTCH[i] = "Sneeuw"
-    when pdlong[i] == "Sunny" then translation_to_DUTCH[i] = "Zonnig"
-    when pdlong[i] == "Thunderstorms" then translation_to_DUTCH[i] = "Onweersbuien"
-    when pdlong[i] == "Thunderstorm" then translation_to_DUTCH[i] = "Onweersbui"
-    when pdlong[i] == "Unknown" then translation_to_DUTCH[i] = "Onbekend"
-    when pdlong[i] == "Overcast" then translation_to_DUTCH[i] = "Geheel bewolkt"
-    when pdlong[i] == "Scattered Clouds" then translation_to_DUTCH[i] = "Wisselend bewolkt"
-    end
-    
-    end
-end
-
-#@forecast_long.wunder_forecast_period_longs.each do | pd |
-%>
-   <% if rowcount == 1 %>
-   <tr>
-   <td class="tabledetail"><b>Datum</b></td>
-   <% for i in 0..5 do %>
-   <td nowrap class="tabledetail" align="center"><b>
-   <%= day[i] %>
-   <%= pdlong[i].strftime("%d %b") %>
-   </b></td>
-   <% end %>
-   </tr>
-   <% end %>
-   <% if rowcount == 2 %>
-   <tr>
-   <td class="tabledetail"><b>Maximum</b></td>
-   <td class="tabledetail" align="center"><font color="#FF0000"><b><%= pdlong[0].to_i %>&nbsp;&#8451;</b></font></td>
-   <td class="tabledetail" align="center"><font color="#FF0000"><b><%= pdlong[1].to_i %>&nbsp;&#8451;</b></font></td>
-   <td class="tabledetail" align="center"><font color="#FF0000"><b><%= pdlong[2].to_i %>&nbsp;&#8451;</b></font></td>
-   <td class="tabledetail" align="center"><font color="#FF0000"><b><%= pdlong[3].to_i %>&nbsp;&#8451;</b></font></td>
-   <td class="tabledetail" align="center"><font color="#FF0000"><b><%= pdlong[4].to_i %>&nbsp;&#8451;</b></font></td>
-   <td class="tabledetail" align="center"><font color="#FF0000"><b><%= pdlong[5].to_i %>&nbsp;&#8451;</b></font></td>
-   </tr>
-   <% end %>
-   <% if rowcount == 3 %>
-   <tr>
-   <td class="tabledetail"><b>Minimum</b></td>
-   <td class="tabledetail" align="center"><font color="#003366"><b><%= pdlong[0].to_i %>&nbsp;&#8451;</b></font></td>
-   <td class="tabledetail" align="center"><font color="#003366"><b><%= pdlong[1].to_i %>&nbsp;&#8451;</b></font></td>
-   <td class="tabledetail" align="center"><font color="#003366"><b><%= pdlong[2].to_i %>&nbsp;&#8451;</b></font></td>
-   <td class="tabledetail" align="center"><font color="#003366"><b><%= pdlong[3].to_i %>&nbsp;&#8451;</b></font></td>
-   <td class="tabledetail" align="center"><font color="#003366"><b><%= pdlong[4].to_i %>&nbsp;&#8451;</b></font></td>
-   <td class="tabledetail" align="center"><font color="#003366"><b><%= pdlong[5].to_i %>&nbsp;&#8451;</b></font></td>
-   </tr>
-   <% end %>
-   <% if rowcount == 4 %>
-   <tr>
-   <td class="tabledetail"><b>Weerbeeld</b></td>
-   <td class="tabledetail" align="center"><b><img src="<%= pdlong[0].to_s %>" width=28></img></b></font></td>
-   <td class="tabledetail" align="center"><b><img src="<%= pdlong[1].to_s %>" width=28></img></b></font></td>
-   <td class="tabledetail" align="center"><b><img src="<%= pdlong[2].to_s %>" width=28></img></b></font></td>
-   <td class="tabledetail" align="center"><b><img src="<%= pdlong[3].to_s %>" width=28></img></b></font></td>
-   <td class="tabledetail" align="center"><b><img src="<%= pdlong[4].to_s %>" width=28></img></b></font></td>
-   <td class="tabledetail" align="center"><b><img src="<%= pdlong[5].to_s %>" width=28></img></b></font></td>
-   </tr>
-   <% end %>
-   <% if rowcount == 5 %>
-   <tr>
-   <td class="tabledetail"><b></b></td>
-   <%
-   for i in 0..5 do
-   %>
-   <td nowrap class="tabledetail" align="center"><font color="#003366"><b><%= translation_to_DUTCH[i] %></b></font></td>
-   <% end %>
-   </tr>
-   <% end %>
-
-
-
-
-
-
-  </tr>
-
+<!-- FORECAST -->
+<table style="text-align:center">
+  <% if @wunder_forecast != nil && @wunder_forecast.last_retrieved > 6.hours.ago %>
+    <tr>
+      <td class="tabletop" colspan="6">
+        Weersverwachting,  opgesteld op <%= @wunder_forecast.last_retrieved.to_s(:time) %>
+      </td>
+    </tr>
+    <% 
+    t = 0
+    @wunder_forecast.wunder_forecast_periods.each do | pd | 
+    t += 1
+    if t == 1 then
+    %>
+      <tr>
+    <% 
+    t += 1
+    end %>
+        <td class="tabledetail">
+          <%= pd.name %>
+        </td>
+        <% if !pd.icon_location.nil? then %>
+          <td class="tabledetail">
+            <img border=0 src="<%= pd.icon_location %>">
+          </td>
+        <% end %>
+        <td class="tabledetail" style="text-align:left">
+          <%= AppConfig.wunderground_is_metric ? pd.textmetric : pd.text %>
+        </td>
+	<% if t == 3 then
+	t = 0
+	%>
+      </tr>
 <% end %>
-<% end %>
+    <% end %>
+  <% else %>
+    <tr>
+      <th colspan="3" style="font-size:1.5em">
+        Forecast Temporarily Unavailable
+      </th>
+    </tr>
+  <% end %>
 </table>
-
-
-

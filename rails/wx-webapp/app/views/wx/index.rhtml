@@ -24,14 +24,23 @@
   </tr>
   <tr>
     <td valign="top" nowrap>
+    <table>
+    <tr>
+    <td>
     <a class="menu" href="..">Home</a><br>
     <a class="menu" href="radarsatelliet">Radar en satelliet</a><br>
     <a class="menu" href="kortetermijn">Korte termijn</a><br>
     <a class="menu" href="langetermijn">Lange termijn</a><br>
     <a class="menu" href="graphs/index.html">Grafieken</a><br>
     <a class="menu" href="http://weerinwelsum.synology.me:8080/archive/webcam.php">Webcam archief</a><br>
+    </td>
+    <td>
+        <%= render(:partial => "alerts", :layout => false ) 
+%>
 
-    <br>
+    </td>
+    </tr>
+    </table>
     <table>
     <tr>
     <td>
@@ -83,7 +92,6 @@
         <%= periodically_call_remote(:update => 'period',
     		     :url => { :action => :period },
     		    		 :frequency => 60 ) %>
-    		    		 
     </td>
     </tr>
 

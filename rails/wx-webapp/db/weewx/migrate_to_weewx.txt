@@ -1,0 +1,11 @@
+1. make a backup of the current table archive_records, 
+   by renaming it to __archive_records
+run save_archive_records.sql
+
+2. make a backup of the current table current_conditons,
+   by renaming it to __current_conditions
+run save_current_conditions.sql
+
+3. create the views archive_records and current_condions, so that 
+   RoR understands the weewx-data
+run views.sql

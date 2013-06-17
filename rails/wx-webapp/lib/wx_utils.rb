@@ -61,6 +61,7 @@ module WxUtils
   def calc_dewpoint(temp, humidity)
     #http://en.wikipedia.org/wiki/Dewpoint
 
+
     temp = to_c(temp)
     humidity = humidity / 100.0
     lam = ((17.27 * temp) / (237.7 + temp)) + Math.log(humidity)
@@ -96,7 +97,7 @@ module WxUtils
   # rain conversion
   # 1 inches = 25.4 millimeters
   def inches_to_mm(inches)
-    (inches * 25.4).to_f.round_with_precision(2)
+    (inches * 25.4).to_f.round_with_precision(1)
   end
 
 end

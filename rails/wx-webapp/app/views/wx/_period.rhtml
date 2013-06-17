@@ -1,5 +1,5 @@
 <% if !@today.nil? %>
-<% if !@today.hiTempDate.nil? %>
+<% if !@today.hiWindchillDate.nil? %>
 <TABLE WIDTH="100%" border="0" cellspacing="2" cellpadding="2">
 <TR>
 <TD class="tabletop" COLSPAN="6" align="center">De extremen van vandaag</td>
@@ -425,21 +425,24 @@ Zonneschijn&nbsp;W/m&#178;
 <td align="center">
 <font color="green">
 <b>
--
 </b>
 </font>
 </td>
 <td align="center">
 <font color="red">
 <b>
--
+<% if !@today.solar.nil? %>
+<%= @today.solar %>
+<% end %>
 </b>
 </font>
 </td>
 <td align="center">
 <font color="#222222">
 <b>
--
+<% if !@today.solar.nil? %>
+<%= @today.hiSolarDate.in_time_zone.strftime "%H:%M" %>
+<% end %>
 </b>
 </font>
 </td>
@@ -468,21 +471,24 @@ UV index
 <td align="center">
 <font color="green">
 <b>
--
 </b>
 </font>
 </td>
 <td align="center">
 <font color="red">
 <b>
--
+<% if !@today.uv.nil? %>
+<%= (@today.uv.to_f/10).round(1) %>
+<% end %>
 </b>
 </font>
 </td>
 <td align="center">
 <font color="#222222">
 <b>
--
+<% if !@today.uv.nil? %>
+<%= @today.hiUVDate.in_time_zone.strftime "%H:%M" %>
+<% end %>
 </b>
 </font>
 </td>
@@ -526,10 +532,8 @@ UV index
 <font color="#222222">Neerslagsom&nbsp;mm</font></td>
 <td align="center">
 <font color="#003366">
-<% if @yesterday != nil %>
 <% if !@yesterday.rain.nil? %>
 <%= @yesterday.inches_to_mm(@yesterday.rain.to_f).round(1) %>
-<% end %>
 <% end %>
 </font>
 </td>
@@ -551,14 +555,16 @@ UV index
 <font color="#003366">
 <% if !@this_month.rain.nil? %>
 <%= @this_month.inches_to_mm(@this_month.rain.to_f).round(1) %>
-<% end %>                                                                 
+<% end %>
 </font>
 </td>
 <td align="center">
 <font color="#003366">
+<% if !@this_year.nil? %>
 <% if !@this_year.rain.nil? %>
 <%= @this_year.inches_to_mm(@this_year.rain.to_f).round(1) %>
-<% end %>                                                                 
+<% end %>
+<% end %>
 </font>
 </td>
 </tr>
@@ -596,8 +602,10 @@ UV index
 </td>
 <td align="center">
 <font color="#003366">
+<% if !@this_year.nil? %>
 <% if !@this_year.et.nil? %>
 <%= @this_year.inches_to_mm(@this_year.et.to_f).round(1) %>
+<% end %>
 <% end %>
 </font>
 </td>
@@ -609,7 +617,7 @@ UV index
 <font face="Verdana,Arial,Helvetica,sans-serif" size=2px color="#000080">
 <center>
 <b>
-Daggegevens nog niet bekend; <br>over enkele minuten zijn deze beschikbaar.
+Statistieken over vandaag nog niet bekend; <br>over enkele minuten zijn deze beschikbaar.
 </b>
 </center>
 </font>
