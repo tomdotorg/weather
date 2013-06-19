@@ -4,7 +4,7 @@ def format_alert(alerts)
     if !alerts.nil?
       a = []
       alerts.each do |i|
-        if i["significance"] != "S" && i["significance"] != "N"
+         if i["significance"] != "S" && i["significance"] != "N"
           dep = i["description"]
           a << link_to("#{dep}<br>", "#"+i["phenomena"])
         end
@@ -14,19 +14,21 @@ def format_alert(alerts)
 end
 
   def alerts_table(alerts)
-    if !alerts.nil?
+    if alerts.nil?
+    a = []
+    a << "<tr><td width=270>No outstanding warning.<br>Geen waarschuwing van kracht.</td></tr>"
+    end
+   if !alerts.nil?
       a = []
       alerts.each do |i|
 	n = i["message"].strip.gsub("\n", "<br>")
         start = i["date"].localtime
         expire = i["expires"].localtime
-        a << "<tr><td width=270>" +
+        color = i["level_meteoalarm_name"]
+        a << "<tr><td width=270 bgcolor=#{color}>" +
             "Geldig van #{start.strftime("%a %H:%M")} " +
-            "tot #{expire.strftime("%a %H:%M")}.</td></tr><tr><td width=270>#{n}</td></tr>"
+            "tot #{expire.strftime("%a %H:%M")}.</td></tr><tr><td width=270 bgcolor=#{color}>#{n}</td></tr>"
       end
-    else
-    a = []
-    a << "<tr><td width=270><b>No outstanding warnings.<br>Geen waarschuwingen van kracht.</b></td></tr>"
     end
     return a.to_s
   end
