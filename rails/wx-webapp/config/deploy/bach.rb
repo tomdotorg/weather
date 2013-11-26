@@ -30,9 +30,9 @@ set :branch, "prod"
 # via the :deploy_to variable:
 set :deploy_to, "~/apps/#{application}"
 
-role :app, "mint"
-role :web, "mint"
-role :db,  "mint", :primary => true
+role :app, "bach"
+role :web, "bach"
+role :db,  "bach", :primary => true
 
 #todo: copy database.yml
 # cp ~/apps/weather/config/database.yml ~/cap/weather/shared/system/
