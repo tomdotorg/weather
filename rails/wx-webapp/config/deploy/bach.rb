@@ -50,6 +50,7 @@ end
 
 #desc "Symlink root directory under public_html"
 task :symlink_public, :roles => :app do
+  run "mkdir #{shared_path}/images"
   run "ln -nsf #{shared_path}/images
        #{release_path}/public/"
   run "ln -nsf /var/www/mrtg
