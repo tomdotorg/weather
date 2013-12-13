@@ -26,6 +26,7 @@ class Astro
                              BigDecimal.new(AppConfig.longitude.to_s))
   end
 
+  # Upper edge of the sun is on the horizon
   def self.get_official_riseset(date = Time.now.to_date)
     calc = get_calc(date)
     rise = calc.compute_utc_official_sunrise.to_time.getlocal
@@ -33,6 +34,7 @@ class Astro
     { :rise => rise, :set => set, :daylight => self.daylight(rise, set)}
   end
 
+  # Center of sun is 6 degrees above horizon
   def self.get_civil_riseset(date = Time.now.to_date)
     calc = get_calc(date)
     rise = calc.compute_utc_civil_sunrise.to_time.getlocal
@@ -40,6 +42,7 @@ class Astro
     { :rise => rise, :set => set, :daylight => self.daylight(rise, set)}
   end
 
+  # Center of sun is 18 degrees below horizon
   def self.get_astronomical_riseset(date = Time.now.to_date)
     calc = get_calc(date)
     rise = calc.compute_utc_astronomical_sunrise.to_time.getlocal
@@ -47,6 +50,7 @@ class Astro
     { :rise => rise, :set => set, :daylight => self.daylight(rise, set)}
   end
 
+  # Center of sun is 12 degrees below horizon
   def self.get_nautical_riseset(date = Time.now.to_date)
     calc = get_calc(date)
     rise = calc.compute_utc_nautical_sunrise.to_time.getlocal
