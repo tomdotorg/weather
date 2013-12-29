@@ -20,6 +20,7 @@ class WunderAlmanacManager < WunderBase
         a.record_low_temp_year = c["temp_low"]["recordyear"].to_i
         a.mean_temp = (a.avg_high_temp + a.avg_low_temp) / 2
       end
+      a.touch
       a.save!
     end
     return a
