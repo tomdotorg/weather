@@ -1,4 +1,4 @@
-set :application, "wx-services-dev"
+set :application, "wx-services"
 
 #set :deploy_dir, "/wx-services"
 
@@ -23,22 +23,20 @@ set :deploy_via, :remote_cache
 set :repository_cache, "git_cache"
 set :ssh_options, { :forward_agent => true }
 set :repository, "git@github.com:mitct02/weather.git"
-set :branch, "master"
-
+set :branch, "prod"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
 set :deploy_to, "~/apps/#{application}"
 
-role :app, "server"
-role :web, "server"
-role :db,  "server", :primary => true
+role :app, "handel"
+role :web, "handel"
+role :db,  "handel", :primary => true
 
-#role :app, "dev"
-#role :web, "dev"
-#role :db,  "dev", :primary => true
-
+#todo: copy database.yml
+# cp ~/apps/weather/config/database.yml ~/cap/weather/shared/system/
+# make system the permanent place and do a ln on deployment
 #desc "Symlink config.yml and database.yml from shared to  current directory
 #      since it should not be kept in version control"
 task :symlink_config_yml, :roles => :app do
@@ -50,7 +48,11 @@ task :symlink_config_yml, :roles => :app do
        #{release_path}/config/service_providers.yml"
 end
 
-after 'deploy:update_code', 'symlink_config_yml'
+#desc "Symlink root directory under public_html"
+task :symlink_public, :roles => :app do
+end
+
+after 'deploy:update_code', 'symlink_config_yml', 'symlink_public'
 
 namespace(:deploy) do
   desc "Shared phusion passenger restart"
@@ -58,6 +60,11 @@ namespace(:deploy) do
     run "touch #{current_path}/tmp/restart.txt"
   end
 end
+
+desc "tail -f development log"
+task :tail_dev_log, :roles => :app do 
+  stream "tail -f #{shared_path}/log/development.log" 
+end 
 
 desc "tail -f production log"
 task :tail_prod_log, :roles => :app do
