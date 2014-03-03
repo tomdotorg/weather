@@ -46,6 +46,7 @@ task :symlink_config_yml, :roles => :app do
        #{release_path}/config/config.yml"
   run "ln -nsf #{shared_path}/config/service_providers.yml
        #{release_path}/config/service_providers.yml"
+  run "mkdir #{release_path}/tmp #{release_path}/log"
 end
 
 #desc "Symlink root directory under public_html"
