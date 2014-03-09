@@ -1,8 +1,8 @@
-# deploy deploy-dev branch to server
+set :application, "wx-webapp"
 
-set :application, "wx-webapp-dev"
+#set :deploy_dir, "/wx-webapp"
 
-set :user, "henry"
+set :user, "tom"
 ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa")] 
 #ssh_options[:port] = 7822
 #ssh_options[:verbose] = :debug
@@ -23,16 +23,16 @@ set :deploy_via, :remote_cache
 set :repository_cache, "git_cache"
 set :ssh_options, { :forward_agent => true }
 set :repository, "git@github.com:mitct02/weather.git"
-set :branch, "henry-ui"
+set :branch, "prod"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
-set :deploy_to, "/home/henry/apps/#{application}"
+set :deploy_to, "~/apps/#{application}"
 
-role :app, "server"
-role :web, "server"
-role :db,  "server", :primary => true
+role :app, "handel"
+role :web, "handel"
+role :db,  "handel", :primary => true
 
 #todo: copy database.yml
 # cp ~/apps/weather/config/database.yml ~/cap/weather/shared/system/
@@ -46,19 +46,10 @@ task :symlink_config_yml, :roles => :app do
        #{release_path}/config/config.yml"
   run "ln -nsf #{shared_path}/config/service_providers.yml
        #{release_path}/config/service_providers.yml"
-#  run "mkdir #{release_path}/tmp"
 end
 
 #desc "Symlink root directory under public_html"
 task :symlink_public, :roles => :app do
-  run "ln -nsf #{shared_path}/images
-       #{release_path}/public/"
-  run "ln -nsf /var/www/mrtg
-       #{release_path}/public/"
-# fixup .htaccess for passenger
-# example can be found in config/dot_htaccess_passenger
-#  run "cp #{shared_path}/config/dot_htaccess
-#       #{release_path}/public/.htaccess"
 end
 
 after 'deploy:update_code', 'symlink_config_yml', 'symlink_public'

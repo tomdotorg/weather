@@ -2,7 +2,7 @@ set :application, "wx-services"
 
 #set :deploy_dir, "/wx-services"
 
-set :user, "tom"
+set :user, "vagrant"
 ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa")] 
 #ssh_options[:port] = 7822
 #ssh_options[:verbose] = :debug
