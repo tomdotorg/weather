@@ -6,6 +6,7 @@ class WxController < ApplicationController
   include REXML
 
   def index
+    @applet = true
     periods
     get_current_conditions
     get_noaa_forecast
@@ -75,6 +76,12 @@ class WxController < ApplicationController
     @official_riseset_six_months = Astro.get_official_riseset(Time.now + 6.months)
     @official_offset_six_months = WxUtils.hhmm_between_dates(@official_riseset_today[:daylight],
                                                            @official_riseset_six_months[:daylight])
+    @official_riseset_winter = Astro.get_official_riseset(Time.gm(2000,12,21))
+    @official_offset_winter = WxUtils.hhmm_between_dates(@official_riseset_today[:daylight],
+                                                           @official_riseset_winter[:daylight])
+    @official_riseset_summer = Astro.get_official_riseset(Time.gm(2000,6,21))
+    @official_offset_summer = WxUtils.hhmm_between_dates(@official_riseset_today[:daylight],
+                                                           @official_riseset_summer[:daylight])
 
     @civil_riseset_today = Astro.get_civil_riseset
     @civil_riseset_tomorrow = Astro.get_civil_riseset(Time.now + 1.day)
@@ -98,6 +105,12 @@ class WxController < ApplicationController
     @civil_riseset_six_months = Astro.get_civil_riseset(Time.now + 6.months)
     @civil_offset_six_months = WxUtils.hhmm_between_dates(@civil_riseset_today[:daylight],
                                                         @civil_riseset_six_months[:daylight])
+    @civil_riseset_winter = Astro.get_civil_riseset(Time.gm(2000,12,21))
+    @civil_offset_winter = WxUtils.hhmm_between_dates(@civil_riseset_today[:daylight],
+                                                           @civil_riseset_winter[:daylight])
+    @civil_riseset_summer = Astro.get_civil_riseset(Time.gm(2000,6,21))
+    @civil_offset_summer = WxUtils.hhmm_between_dates(@civil_riseset_today[:daylight],
+                                                           @civil_riseset_summer[:daylight])
   end
 
   def get_airport_conditions

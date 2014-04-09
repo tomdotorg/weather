@@ -1,4 +1,4 @@
-<!-- SUNRISE -->
+<!-- SUNRISE AND TWILIGHT -->
 <table border=1 style="width:360;background-color:#C0C0C0;text-align:center" id="SUNRISE">
   <% if @riseset_available %>
     <tr>
@@ -224,6 +224,56 @@
         <%= @official_riseset_six_months[:daylight].strftime("%H:%M") %>
       </td>
       <td><%= @official_offset_six_months[:negative] ? "-" : "+" %><%= @official_offset_six_months[:time].strftime("%H:%M") %></td>
+    </tr>
+    <tr>
+      <td>
+        <b>Winter Solstice</b>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_winter[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_winter[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @civil_riseset_winter[:daylight].strftime("%H:%M") %>
+      </td>
+      <td><%= @civil_offset_winter[:negative] ? "-" : "+" %><%= @civil_offset_winter[:time].strftime("%H:%M") %></td>
+      <td>
+        <%= format_riseset_time(@official_riseset_winter[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@official_riseset_winter[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @official_riseset_winter[:daylight].strftime("%H:%M") %>
+      </td>
+      <td><%= @official_offset_winter[:negative] ? "-" : "+" %><%= @official_offset_winter[:time].strftime("%H:%M") %></td>
+    </tr>
+    <tr>
+      <td>
+        <b>Summer Solstice</b>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_summer[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@civil_riseset_summer[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @civil_riseset_summer[:daylight].strftime("%H:%M") %>
+      </td>
+      <td><%= @civil_offset_summer[:negative] ? "-" : "+" %><%= @civil_offset_summer[:time].strftime("%H:%M") %></td>
+      <td>
+        <%= format_riseset_time(@official_riseset_summer[:rise].getlocal) %>
+      </td>
+      <td>
+        <%= format_riseset_time(@official_riseset_summer[:set].getlocal) %>
+      </td>
+      <td>
+        <%= @official_riseset_summer[:daylight].strftime("%H:%M") %>
+      </td>
+      <td><%= @official_offset_summer[:negative] ? "-" : "+" %><%= @official_offset_summer[:time].strftime("%H:%M") %></td>
     </tr>
   <% end %>
 </table>
