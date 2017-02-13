@@ -19,3 +19,4 @@ config.action_view.cache_template_loading            = true
 # config.action_mailer.raise_delivery_errors = false
 
 config.log_level = :warn
+ActionController::Base.asset_host="http://wx-images.tom.org"
