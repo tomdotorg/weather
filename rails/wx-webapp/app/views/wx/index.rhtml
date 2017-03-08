@@ -17,11 +17,6 @@
     <div style="background-color:#000080;font-family:'Arial Black';color:#FFFFFF;text-align:left;width:100%;font-size:1.25em">
       <strong>Live Weather in Beverly, MA</strong>
     </div>
-    <p>
-    <% cache(:action => "index", :action_suffix => "sunapplet") do %>
-      <%= render(:partial => "sunapplet", :layout => false  ) %>
-    <% end %>
-      <br>
       <% if @alerts and @alerts.length > 0 %>
         <table border=1 style="background-color:#C0C0C0;text-align:center;width:360px">
           <tr>
