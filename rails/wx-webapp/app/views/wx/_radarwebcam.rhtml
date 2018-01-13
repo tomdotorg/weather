@@ -18,23 +18,6 @@ function ImageRefresh() {
 	performance of camera, so the specified performance might not go out.
 -->
 <table border="1" style="text-align:center">
-  <% if !@dark %>
-    <tr>
-      <td colspan="2">
-        View to the South - updated every <b>five seconds</b>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <b>New: </b>See the <a href="http://webcam.tom.org" target="_blank">live motion webcam</a>.
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <img src="http://home.tom.org:60002/SnapshotJPEG?Resolution=640x480&Quality=Standard&Count=0" name="CameraImage" border="0" hspace="0" vspace="0" width="640" height="480" onload="setTimeout('ImageRefresh()', 5000)" onerror="setTimeout('ImageRefresh()', 60000)" onabort="setTimeout('ImageRefresh()', 60000)" alt="" >
-      </td>
-    </tr>
-  <% end %>
   <tr>
     <td colspan="2">
       <img src="http://radblast-mi.wunderground.com/cgi-bin/radar/WUNIDS_map?station=BOX&brand=wui&num=6&delay=15&type=N0R&frame=0&scale=1.000&noclutter=0&t=1346837073&lat=42.56645966&lon=-70.85327911&label=Beverly%2C+MA&showstorms=0&map.x=400&map.y=240&centerx=400&centery=240&transx=0&transy=0&showlabels=1&severe=0&rainsnow=0&lightning=0&smooth=0f" alt="">
