@@ -53,12 +53,12 @@ module RRDWriter
 
     # update rainfall.rrd with a.date,a.rainfall,a.rainfall_m
     if !a.rainfall.nil?
-	RRD.update("#{rrd_files_location}/rainfall.rrd","#{a.date.to_i}:#{a.rainfall}:#{a.rainfall_m}")
+	RRD.update("#{rrd_files_location}/rainfall.rrd","#{a.date.to_i}:#{a.rainfall / 10}:#{a.rainfall_m/ 10}")
     end
 
     # update rainrate.rrd with a.date,a.high_rain_rate,a.high_rain_rate_m
     if !a.high_rain_rate.nil?
-	RRD.update("#{rrd_files_location}/rainrate.rrd","#{a.date.to_i}:#{a.high_rain_rate}:#{a.high_rain_rate_m}")
+	RRD.update("#{rrd_files_location}/rainrate.rrd","#{a.date.to_i}:#{a.high_rain_rate / 10}:#{a.high_rain_rate_m / 10}")
     end
 
     # update pressure.rrd with a.date,a.pressure,a.pressure_m
